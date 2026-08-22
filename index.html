@@ -3,29 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <title>عداد زيارة عاشوراء</title>
-    <!-- تم تعديل اسم المسار ليكون متوافق مع السيرفرات -->
-   <style>
-  body { text-align: center; font-family: Arial, sans-serif; margin-top: 50px; }
-  h1 { font-size: 50px; color: #333; }
-  .button { padding: 15px 30px; font-size: 18px; cursor: pointer; margin: 10px; border: none; border-radius: 5px; }
-  .add-btn { background-color: #4caf50; color: white; transition: opacity 0.15s; }
-  .add-btn:hover { opacity: 0.8; }
-  .add-btn:active { opacity: 0.6; }
-  .reset-btn { background-color: #f44336; color: white; transition: opacity 0.15s; }
-  .reset-btn:hover { opacity: 0.8; }
-  .reset-btn:active { opacity: 0.6; }
- </style>
+    <style>
+      body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        margin-top: 50px;
+      }
+      h1 {
+        font-size: 50px;
+        color: #333;
+      }
+      .button {
+        padding: 15px 30px;
+        font-size: 18px;
+        cursor: pointer;
+        margin: 10px;
+        border: none;
+        border-radius: 5px;
+      }
+      .add-btn {
+        background-color: #4caf50;
+        color: white;
+        transition: opacity 0.15s;
+      }
+      .add-btn:hover {
+        opacity: 0.8;
+      }
+      .add-btn:active {
+        opacity: 0.6;
+      }
+      .reset-btn {
+        background-color: #f44336;
+        color: white;
+        transition: opacity 0.15s;
+      }
+      .reset-btn:hover {
+        opacity: 0.8;
+      }
+      .reset-btn:active {
+        opacity: 0.6;
+      }
+    </style>
   </head>
   <body>
     <h2>عدد أيام قراءة زيارة عاشوراء:</h2>
-    <!-- شلت كلاس h1 لأننا بننسق الوسم مباشرة -->
     <h1 id="counterDisplay">0</h1>
 
-    <!-- لاحظ كيف أضفت كلاس button هنا عشان ياخذ التنسيق الأساسي -->
     <button class="button add-btn" onclick="addDay()">سجل قراءة اليوم</button>
-    <button class="button reset-btn" onclick="resetCounter()">
-      تصفير العداد
-    </button>
+    <button class="button reset-btn" onclick="resetCounter()">تصفير العداد</button>
 
     <script>
       let count = localStorage.getItem("ashuraCount") || 0;
@@ -38,9 +63,7 @@
       }
 
       function resetCounter() {
-        let confirmReset = confirm(
-          "هل أنت متأكد أنك تبي تصفر العداد وتبدأ من جديد؟",
-        );
+        let confirmReset = confirm("هل أنت متأكد أنك تبي تصفر العداد وتبدأ من جديد؟");
         if (confirmReset) {
           count = 0;
           document.getElementById("counterDisplay").innerText = count;
