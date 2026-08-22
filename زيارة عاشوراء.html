@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>عداد زيارة عاشوراء</title>
+    <!-- تم تعديل اسم المسار ليكون متوافق مع السيرفرات -->
+    <link rel="stylesheet" href="/CSS folder/زيارة عاشوراء.css" />
+  </head>
+  <body>
+    <h2>عدد أيام قراءة زيارة عاشوراء:</h2>
+    <!-- شلت كلاس h1 لأننا بننسق الوسم مباشرة -->
+    <h1 id="counterDisplay">0</h1>
+
+    <!-- لاحظ كيف أضفت كلاس button هنا عشان ياخذ التنسيق الأساسي -->
+    <button class="button add-btn" onclick="addDay()">سجل قراءة اليوم</button>
+    <button class="button reset-btn" onclick="resetCounter()">
+      تصفير العداد
+    </button>
+
+    <script>
+      let count = localStorage.getItem("ashuraCount") || 0;
+      document.getElementById("counterDisplay").innerText = count;
+
+      function addDay() {
+        count++;
+        document.getElementById("counterDisplay").innerText = count;
+        localStorage.setItem("ashuraCount", count);
+      }
+
+      function resetCounter() {
+        let confirmReset = confirm(
+          "هل أنت متأكد أنك تبي تصفر العداد وتبدأ من جديد؟",
+        );
+        if (confirmReset) {
+          count = 0;
+          document.getElementById("counterDisplay").innerText = count;
+          localStorage.removeItem("ashuraCount");
+        }
+      }
+    </script>
+  </body>
+</html>
