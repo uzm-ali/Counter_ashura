@@ -3,39 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <title>عداد زيارة عاشوراء</title>
+    <!-- يمكنك إبقاء ملف الـ CSS الخارجي إذا كنت تستخدمه، لكن وضعت التنسيقات هنا لتعمل مباشرة -->
+    <!-- <link rel="stylesheet" href="/CSS folder/زيارة عاشوراء.css" /> -->
+    
     <style>
       body {
         text-align: center;
         font-family: Arial, sans-serif;
         margin-top: 30px;
-        padding: 0 15px; /* مسافة جانبية عشان النص ما يلصق في شاشة الجوال */
+        padding: 0 15px; 
+        transition: background-color 0.3s, color 0.3s; /* انتقال ناعم للوضع الليلي */
       }
 
       /* تنسيق النصوص الطويلة */
       .main, .c1, .c3, .c5 {
-        font-size: 22px; /* حجم مناسب للقراءة */
+        font-size: 22px; 
         color: #333;
         margin-bottom: 30px;
-        line-height: 2; /* تباعد الأسطر عشان التشكيل */
+        line-height: 2; 
       }
 
       /* تنسيق ملاحظات القراءة الحمراء */
-      .secondry, .c2, .c4 {
+      .secondry, .c2, .c4, .c6 {
         font-size: 20px;
         color: red;
         margin-bottom: 20px;
         font-weight: bold;
+      }
+      
+      .c6 {
+        margin-top: 40px;
       }
 
       .t1 {
         font-size: 30px;
         color: #555;
         margin-bottom: 20px;
-      }
-        .c6 {
-        font-size: 20px;
-        color: red;
-        margin-top: 40px;
       }
 
       h1 {
@@ -44,13 +47,20 @@
         margin: 20px 0;
       }
 
-      .button {
+      /* أزرار التحكم */
+      .button, .Dark-mode-btn {
         padding: 15px 30px;
         font-size: 18px;
         cursor: pointer;
         margin: 10px;
         border: none;
         border-radius: 5px;
+      }
+
+      .Dark-mode-btn {
+        background-color: #111;
+        color: #eee;
+        padding: 10px 20px;
       }
 
       .add-btn {
@@ -70,11 +80,25 @@
 
       .reset-btn:hover { opacity: 0.8; }
       .reset-btn:active { opacity: 0.6; }
+
+      /* --- تنسيقات الوضع الليلي الفعلي --- */
+      body.dark-theme {
+        background-color: #121212;
+        color: #ffffff;
+      }
+      body.dark-theme .main, 
+      body.dark-theme .c1, 
+      body.dark-theme .c3, 
+      body.dark-theme .c5, 
+      body.dark-theme .t1, 
+      body.dark-theme h1 {
+        color: #dddddd; /* تفتيح لون الخط في الوضع الليلي */
+      }
     </style>
   </head>
   <body>
     <h2 class="t1">زيارة عاشوراء</h2>
-    
+
     <p class="main">
       اَلسَّلامُ عَلَيْكَ يَا أَبَا عَبْدِ اللهِ ، اَلسَّلامُ عَلَيْكَ يَا بْنَ
       رَسُولِ اللهِ (اَلسَّلامُ عَلَيْكَ يَا خِيَرَةَ اللهِ وَابْنَ خِيَرَتِهِ )
@@ -177,9 +201,13 @@
       مُهَجَهُمْ دُونَ الْحُسَيْنِ عَلَيْهِ السَّلامُ .
     </p>
 
-    <p class="c6">Created by [Ali Abbas Al-ibrahim]</p>
+    <p class="c6">Created by [Ali Al-ibrahim]</p>
 
-    <hr style="width: 80%; margin: 40px auto; border: 1px solid #ddd;">
+    <div>
+      <button id="darkModeToggle" class="Dark-mode-btn">تفعيل الوضع الليلي</button>
+    </div>
+
+    <hr style="width: 80%; margin: 40px auto; border: 1px solid #ddd" />
 
     <h2 class="t1">عدد أيام القراءة:</h2>
     <h1 id="counterDisplay">0</h1>
@@ -188,8 +216,12 @@
     <button class="button reset-btn" onclick="resetCounter()">
       تصفير العداد
     </button>
+    
+    <!-- إذا كان لديك ملف main.js يمكنك إبقاء هذا السطر -->
+    <!-- <script src="main.js"></script> -->
 
     <script>
+      // كود العداد
       let count = localStorage.getItem("ashuraCount") || 0;
       document.getElementById("counterDisplay").innerText = count;
 
@@ -200,15 +232,35 @@
       }
 
       function resetCounter() {
-        let confirmReset = confirm(
-          "هل أنت متأكد أنك تبي تصفر العداد وتبدأ من جديد؟",
-        );
+        let confirmReset = confirm("هل أنت متأكد أنك تبي تصفر العداد وتبدأ من جديد؟");
         if (confirmReset) {
           count = 0;
           document.getElementById("counterDisplay").innerText = count;
           localStorage.removeItem("ashuraCount");
         }
       }
+
+      // كود الوضع الليلي
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      const body = document.body;
+
+      // فحص هل المستخدم كان مفعل الوضع الليلي مسبقاً؟
+      if(localStorage.getItem('theme') === 'dark') {
+          body.classList.add('dark-theme');
+          darkModeToggle.innerText = "إلغاء الوضع الليلي";
+      }
+
+      darkModeToggle.addEventListener('click', () => {
+          body.classList.toggle('dark-theme');
+          
+          if(body.classList.contains('dark-theme')) {
+              localStorage.setItem('theme', 'dark');
+              darkModeToggle.innerText = "إلغاء الوضع الليلي";
+          } else {
+              localStorage.setItem('theme', 'light');
+              darkModeToggle.innerText = "تفعيل الوضع الليلي";
+          }
+      });
     </script>
   </body>
 </html>
