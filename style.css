@@ -1,52 +1,162 @@
-/* شلنا النقطة من هنا */
 body {
   text-align: center;
   font-family: Arial, sans-serif;
-  margin-top: 50px;
-  border: none;
-  border-radius: 5px;
+  margin-top: 80px;
+  padding: 0 15px; 
+  transition: background-color 0.3s, color 0.3s;
 }
 
-/* تنسيق الـ h1 مباشرة */
+/* تنسيقات صفحة الدخول */
+.login-body {
+  background-color: #f4f7f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.login-container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 400px;
+}
+.login-container h2 {
+  color: #333;
+  margin-top: 0;
+}
+.login-container p {
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  font-weight: bold;
+}
+.google-btn svg {
+  margin-left: 10px;
+}
+.google-btn:hover {
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* الشريط العلوي لصفحة العداد */
+.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.user-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.user-name {
+  font-weight: bold;
+  color: #4caf50;
+}
+
+/* زر الوضع الليلي */
+.Dark-mode-btn {
+  height: 45px;
+  width: 45px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.Dark-mode-btn:hover { opacity: 0.8; }
+.Dark-mode-btn:active{ opacity: 0.6; }
+
+#darkModeToggle svg:first-child { display: none; }
+#darkModeToggle svg:last-child { display: block; }
+body.dark-theme #darkModeToggle svg:last-child { display: none; }
+body.dark-theme #darkModeToggle svg:first-child { display: block; }
+
+/* تنسيق النصوص الطويلة */
+.main, .c1, .c3, .c5 {
+  font-size: 22px; 
+  color: #333;
+  margin-bottom: 30px;
+  line-height: 2; 
+}
+.secondry, .c2, .c4, .c6 {
+  font-size: 20px;
+  color: red;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.c6 { margin-top: 40px; }
+.t1 {
+  font-size: 30px;
+  color: #555;
+  margin-bottom: 20px;
+}
 h1 {
   font-size: 50px;
   color: #333;
+  margin: 20px 0;
 }
 
-/* التنسيق الأساسي لأي زر يحمل كلاس button */
+/* الأزرار */
 .button {
-  padding: 15px 30px;
-  font-size: 18px;
+  padding: 12px 25px;
+  font-size: 16px;
   cursor: pointer;
-  margin: 10px;
+  margin: 5px;
   border: none;
   border-radius: 5px;
 }
+.add-btn { background-color: #4caf50; color: white; transition: opacity 0.15s; }
+.add-btn:hover { opacity: 0.8; }
+.reset-btn { background-color: #f44336; color: white; transition: opacity 0.15s; }
+.reset-btn:hover { opacity: 0.8; }
+.logout-btn { background-color: #555; color: white; padding: 8px 15px; font-size: 14px;}
 
-.add-btn {
-  background-color: #4caf50;
-  color: white;
-  transition: opacity 0.15s;
+/* الوضع الليلي للألوان */
+body.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
 }
-
-.add-btn:hover {
-  opacity: 0.8;
+body.dark-theme .login-container {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 15px rgba(255,255,255,0.05);
 }
+body.dark-theme .login-container h2 { color: #eee; }
+body.dark-theme .login-container p { color: #bbb; }
+body.dark-theme .google-btn { background-color: #333; color: #fff; border-color: #555; }
+body.dark-theme .google-btn:hover { background-color: #444; }
 
-.add-btn:active {
-  opacity: 0.6;
-}
-
-.reset-btn {
-  background-color: #f44336;
-  color: white;
-  transition: opacity 0.15s;
-}
-
-.reset-btn:hover {
-  opacity: 0.8;
-}
-
-.reset-btn:active {
-  opacity: 0.6;
+body.dark-theme .main, 
+body.dark-theme .c1, 
+body.dark-theme .c3, 
+body.dark-theme .c5, 
+body.dark-theme .t1, 
+body.dark-theme h1 {
+  color: #dddddd; 
 }
