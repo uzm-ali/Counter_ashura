@@ -133,11 +133,22 @@
 
     <hr style="width: 80%; margin: 40px auto; border: 1px solid #ddd" />
 
+    <!-- التعديل حصل هنا: الرقم والأزرار رجعت تحت بعض مباشرة -->
     <h2 class="t1">عدد أيام القراءة:</h2>
-    <h1 id="counterDisplay">0</h1>
+    <h1 id="counterDisplay" style="margin-bottom: 30px;">0</h1>
 
     <button id="addBtn" class="button add-btn">سجل قراءة اليوم</button>
     <button id="resetBtn" class="button reset-btn">تصفير العداد</button>
+
+    <!-- بوكس السجل الجديد: صار تحت الأزرار -->
+    <div style="margin: 40px auto; text-align: right; width: 80%; max-width: 400px; background: rgba(128,128,128,0.1); padding: 20px; border-radius: 10px;">
+      <h3 style="color: #555; border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-top: 0;">سجل القراءة:</h3>
+      <!-- تاريخ آخر قراءة حطيناه داخل البوكس عشان ما يخرب ترتيب الأزرار -->
+      <p id="lastReadDisplay" dir="ltr" style="color: #888; font-size: 14px; margin-bottom: 15px;"></p>
+      
+      <ul id="readingHistoryList" dir="ltr" style="list-style-type: none; padding: 0; font-size: 16px; line-height: 1.8;">
+      </ul>
+    </div>
 
     <!-- استدعاء مكتبات فايربيس -->
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
@@ -159,15 +170,42 @@
       const db = firebase.firestore();
 
       let count = 0;
+      let readingHistory = []; 
       let currentUser = null;
 
       const counterDisplay = document.getElementById("counterDisplay");
+      const lastReadDisplay = document.getElementById("lastReadDisplay");
+      const readingHistoryList = document.getElementById("readingHistoryList");
       const logoutBtn = document.getElementById("logoutBtn");
       const userInfo = document.getElementById("userInfo");
       const addBtn = document.getElementById("addBtn");
       const resetBtn = document.getElementById("resetBtn");
 
-      // التحقق من تسجيل الدخول (إذا لم يكن مسجلاً، يُعاد توجيهه لصفحة الدخول)
+      function getEnglishDate() {
+        return new Date().toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      }
+
+      function updateUI() {
+        counterDisplay.innerText = count;
+        
+        if (readingHistory.length > 0) {
+          lastReadDisplay.innerText = "Last read: " + readingHistory[readingHistory.length - 1];
+        } else {
+          lastReadDisplay.innerText = "";
+        }
+
+        readingHistoryList.innerHTML = "";
+        readingHistory.forEach(date => {
+          let li = document.createElement("li");
+          li.innerText = "✅ " + date;
+          readingHistoryList.appendChild(li);
+        });
+      }
+
       auth.onAuthStateChanged((user) => {
         if (!user) {
           window.location.href = "index.html";
@@ -178,47 +216,57 @@
           db.collection("users").doc(user.uid).get().then((doc) => {
             if (doc.exists) {
               count = doc.data().ashuraCount || 0;
+              readingHistory = doc.data().readingHistory || []; 
             } else {
               count = 0;
+              readingHistory = [];
             }
-            counterDisplay.innerText = count;
+            updateUI();
           }).catch((error) => console.log(error));
         }
       });
 
-      // تسجيل الخروج
       logoutBtn.addEventListener("click", () => {
         auth.signOut().then(() => {
           window.location.href = "index.html";
         });
       });
 
-      // زيادة العداد
       addBtn.addEventListener("click", () => {
+        const today = getEnglishDate();
+
+        if (readingHistory.length > 0 && readingHistory[readingHistory.length - 1] === today) {
+          alert("لقد قمت بتسجيل القراءة لهذا اليوم بالفعل!\nDate: " + today);
+          return; 
+        }
+
         count++;
-        counterDisplay.innerText = count;
+        readingHistory.push(today); 
+        updateUI();
+
         if (currentUser) {
           db.collection("users").doc(currentUser.uid).set({
-            ashuraCount: count
+            ashuraCount: count,
+            readingHistory: readingHistory
           }, { merge: true });
         }
       });
 
-      // تصفير العداد
       resetBtn.addEventListener("click", () => {
-        let confirmReset = confirm("هل أنت متأكد أنك تبي تصفر العداد وتبدأ من جديد؟");
+        let confirmReset = confirm("هل أنت متأكد أنك تبي تصفر العداد وتمسح السجل بالكامل وتبدأ من جديد؟");
         if (confirmReset) {
           count = 0;
-          counterDisplay.innerText = count;
+          readingHistory = []; 
+          updateUI();
           if (currentUser) {
             db.collection("users").doc(currentUser.uid).set({
-              ashuraCount: count
+              ashuraCount: count,
+              readingHistory: readingHistory
             }, { merge: true });
           }
         }
       });
 
-      // كود الوضع الليلي
       const darkModeToggle = document.getElementById("darkModeToggle");
       const body = document.body;
 
