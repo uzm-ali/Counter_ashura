@@ -50,8 +50,8 @@
       });
 
       // حدث الضغط على زر الدخول
-      document.getElementById("googleLoginBtn").addEventListener("click", () => {
-        auth.signInWithPopup(provider).catch((error) => {
+     document.getElementById("googleLoginBtn").addEventListener("click", () => {
+        auth.signInWithRedirect(provider).catch((error) => {
           alert("حدث خطأ أثناء تسجيل الدخول: " + error.message);
         });
       });
