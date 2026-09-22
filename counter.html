@@ -150,7 +150,7 @@
       </ul>
     </div>
 
-    <!-- استدعاء مكتبات فايربيس -->
+  <!-- استدعاء مكتبات فايربيس -->
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
@@ -206,6 +206,7 @@
         });
       }
 
+      // 1. مراقبة حالة المستخدم وجلب البيانات فور الدخول
       auth.onAuthStateChanged((user) => {
         if (!user) {
           window.location.href = "index.html";
@@ -213,16 +214,19 @@
           currentUser = user;
           userInfo.innerText = "أهلاً، " + user.displayName;
 
+          // جلب البيانات من فايربيس
           db.collection("users").doc(user.uid).get().then((doc) => {
             if (doc.exists) {
-              count = doc.data().ashuraCount || 0;
-              readingHistory = doc.data().readingHistory || []; 
+              const data = doc.data();
+              // التأكد أننا نأخذ البيانات الصحيحة أو نضع قيمة افتراضية
+              count = data.ashuraCount || 0;
+              readingHistory = data.readingHistory || []; 
             } else {
               count = 0;
               readingHistory = [];
             }
-            updateUI();
-          }).catch((error) => console.log(error));
+            updateUI(); // تحديث الواجهة بعد جلب البيانات مباشرة
+          }).catch((error) => console.log("Error getting document:", error));
         }
       });
 
@@ -232,6 +236,7 @@
         });
       });
 
+      // 2. تسجيل القراءة وحفظها في فايربيس
       addBtn.addEventListener("click", () => {
         const today = getEnglishDate();
 
@@ -242,22 +247,29 @@
 
         count++;
         readingHistory.push(today); 
-        updateUI();
+        updateUI(); // تحديث الواجهة فوراً
 
+        // حفظ التعديلات في فايربيس
         if (currentUser) {
           db.collection("users").doc(currentUser.uid).set({
             ashuraCount: count,
             readingHistory: readingHistory
-          }, { merge: true });
+          }, { merge: true }).then(() => {
+              console.log("Data successfully saved!");
+          }).catch((error) => {
+              console.error("Error writing document: ", error);
+          });
         }
       });
 
+      // 3. تصفير العداد وحذفه من فايربيس
       resetBtn.addEventListener("click", () => {
         let confirmReset = confirm("هل أنت متأكد أنك تبي تصفر العداد وتمسح السجل بالكامل وتبدأ من جديد؟");
         if (confirmReset) {
           count = 0;
           readingHistory = []; 
           updateUI();
+          
           if (currentUser) {
             db.collection("users").doc(currentUser.uid).set({
               ashuraCount: count,
