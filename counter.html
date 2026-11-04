@@ -5,88 +5,129 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>عداد الزيارات والأدعية</title>
 <style>
-:root{--bg:#f6f4ef;--card:#fff;--tx:#222;--mut:#777;--ac:#7a1f2b;--gold:#b8923a;--bd:#e5e0d5}
-body.dark-theme{--bg:#14161a;--card:#1d2026;--tx:#eee;--mut:#9aa0a8;--bd:#2c3038;--ac:#d6606f;--gold:#d4b05a}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font-family:Tahoma,"Segoe UI",sans-serif;transition:background .3s}
-.topbar{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:12px;padding:10px 14px}
-.burger{order:2;margin-right:auto;background:none;border:1px solid var(--bd);color:var(--tx);border-radius:8px;font-size:22px;width:42px;height:42px;cursor:pointer}
-.topbar h1{font-size:18px;margin:0;color:var(--ac)}
-.side{position:fixed;top:0;left:0;height:100%;width:270px;background:var(--card);border-right:1px solid var(--bd);transform:translateX(-100%);transition:transform .3s;z-index:30;display:flex;flex-direction:column;padding:16px;box-shadow:4px 0 20px rgba(0,0,0,.15)}
-.side.open{transform:none}
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:.3s;z-index:20}
-.ov.show{opacity:1;pointer-events:auto}
-.side .who{padding:10px 6px 16px;border-bottom:1px solid var(--bd);margin-bottom:10px;font-weight:bold;color:var(--gold)}
-.side a{display:block;padding:12px 14px;border-radius:10px;color:var(--tx);text-decoration:none;margin-bottom:4px;cursor:pointer}
-.side a.active,.side a:hover{background:var(--ac);color:#fff}
-.side .sp{flex:1}
-.side button{width:100%;padding:11px;border-radius:10px;border:1px solid var(--bd);background:none;color:var(--tx);cursor:pointer;margin-top:8px;font-size:15px}
-main{max-width:720px;margin:0 auto;padding:18px}
-section{display:none}
-section.show{display:block}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:16px;text-align:center}
-.big{font-size:56px;font-weight:bold;color:var(--ac);margin:6px 0}
-.mut{color:var(--mut);font-size:14px}
-.btn{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:16px;cursor:pointer;margin:4px}
-.btn.ghost{background:none;color:var(--ac);border:1px solid var(--ac)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.dua{font-size:24px;line-height:2.3;text-align:justify;padding:8px 4px}
-.dua p{margin:0 0 14px}
-.dua-wrap{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:16px}
-.bar{height:12px;background:var(--bd);border-radius:8px;overflow:hidden;margin:12px 0}
-.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .2s}
-.heat{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px}
-.heat span{aspect-ratio:1;border-radius:6px;background:var(--bd)}
-.heat span.on{background:var(--gold)}
-.heat span.today{outline:2px solid var(--ac)}
-ul.hist{list-style:none;padding:0;margin:0;text-align:left;line-height:2}
-.fs{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:10px}
-</style>
-</head>
-<body>
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>عداد الزيارات والأدعية</title>
-<style>
-:root{--bg:#f6f4ef;--card:#fff;--tx:#222;--mut:#777;--ac:#7a1f2b;--gold:#b8923a;--bd:#e5e0d5}
-body.dark-theme{--bg:#14161a;--card:#1d2026;--tx:#eee;--mut:#9aa0a8;--bd:#2c3038;--ac:#d6606f;--gold:#d4b05a}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font-family:Tahoma,"Segoe UI",sans-serif;transition:background .3s}
-.topbar{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:12px;padding:10px 14px}
-.burger{order:2;margin-right:auto;background:none;border:1px solid var(--bd);color:var(--tx);border-radius:8px;font-size:22px;width:42px;height:42px;cursor:pointer}
-.topbar h1{font-size:18px;margin:0;color:var(--ac)}
-.side{position:fixed;top:0;left:0;height:100%;width:270px;background:var(--card);border-right:1px solid var(--bd);transform:translateX(-100%);transition:transform .3s;z-index:30;display:flex;flex-direction:column;padding:16px;box-shadow:4px 0 20px rgba(0,0,0,.15)}
-.side.open{transform:none}
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:.3s;z-index:20}
-.ov.show{opacity:1;pointer-events:auto}
-.side .who{padding:10px 6px 16px;border-bottom:1px solid var(--bd);margin-bottom:10px;font-weight:bold;color:var(--gold)}
-.side a{display:block;padding:12px 14px;border-radius:10px;color:var(--tx);text-decoration:none;margin-bottom:4px;cursor:pointer}
-.side a.active,.side a:hover{background:var(--ac);color:#fff}
-.side .sp{flex:1}
-.side button{width:100%;padding:11px;border-radius:10px;border:1px solid var(--bd);background:none;color:var(--tx);cursor:pointer;margin-top:8px;font-size:15px}
-main{max-width:720px;margin:0 auto;padding:18px}
-section{display:none}
-section.show{display:block}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:16px;text-align:center}
-.big{font-size:56px;font-weight:bold;color:var(--ac);margin:6px 0}
-.mut{color:var(--mut);font-size:14px}
-.btn{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:16px;cursor:pointer;margin:4px}
-.btn.ghost{background:none;color:var(--ac);border:1px solid var(--ac)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.dua{font-size:24px;line-height:2.3;text-align:justify;padding:8px 4px}
-.dua p{margin:0 0 14px}
-.dua-wrap{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:16px}
-.bar{height:12px;background:var(--bd);border-radius:8px;overflow:hidden;margin:12px 0}
-.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .2s}
-.heat{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px}
-.heat span{aspect-ratio:1;border-radius:6px;background:var(--bd)}
-.heat span.on{background:var(--gold)}
-.heat span.today{outline:2px solid var(--ac)}
-ul.hist{list-style:none;padding:0;margin:0;text-align:left;line-height:2}
-.fs{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:10px}
+/* الألوان الأساسية للموقع */
+:root {
+  --bg: #f0f4f8;
+  --card: #ffffff;
+  --tx: #1e293b;
+  --mut: #64748b;
+  --ac: #2563eb;
+  --gold: #d97706;
+  --bd: #e2e8f0;
+}
+body.dark-theme {
+  --bg: #0b1120;
+  --card: #1e293b;
+  --tx: #f8fafc;
+  --mut: #94a3b8;
+  --bd: #334155;
+  --ac: #3b82f6;
+  --gold: #fbbf24;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--tx); font-family: Tahoma, "Segoe UI", sans-serif; transition: background 0.3s; display: flex; flex-direction: column; min-height: 100vh; }
+
+.topbar { position: sticky; top: 0; z-index: 10; background: var(--card); border-bottom: 1px solid var(--bd); display: flex; align-items: center; gap: 12px; padding: 10px 14px; }
+.burger { order: 2; margin-right: auto; background: none; border: 1px solid var(--bd); color: var(--tx); border-radius: 8px; font-size: 22px; width: 42px; height: 42px; cursor: pointer; }
+.topbar h1 { font-size: 18px; margin: 0; color: var(--ac); }
+
+.side { position: fixed; top: 0; left: 0; height: 100%; width: 270px; background: var(--card); border-right: 1px solid var(--bd); transform: translateX(-100%); transition: transform 0.3s; z-index: 30; display: flex; flex-direction: column; padding: 16px; box-shadow: 4px 0 20px rgba(0,0,0,0.15); }
+.side.open { transform: none; }
+.ov { position: fixed; inset: 0; background: rgba(0,0,0,0.45); opacity: 0; pointer-events: none; transition: 0.3s; z-index: 20; }
+.ov.show { opacity: 1; pointer-events: auto; }
+
+.side .who { padding: 10px 6px 16px; border-bottom: 1px solid var(--bd); margin-bottom: 10px; font-weight: bold; color: var(--gold); }
+.side a { display: block; padding: 12px 14px; border-radius: 10px; color: var(--tx); text-decoration: none; margin-bottom: 4px; cursor: pointer; transition: 0.2s; }
+.side a.active, .side a:hover { background: var(--ac); color: #fff; }
+.side .sp { flex: 1; }
+.side button { width: 100%; padding: 11px; border-radius: 10px; border: 1px solid var(--bd); background: none; color: var(--tx); cursor: pointer; margin-top: 8px; font-size: 15px; }
+
+main { max-width: 720px; margin: 0 auto; padding: 18px; flex: 1; width: 100%; }
+section { display: none; }
+section.show { display: block; }
+
+.card { background: var(--card); border: 1px solid var(--bd); border-radius: 14px; padding: 18px; margin-bottom: 16px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+.big { font-size: 56px; font-weight: bold; color: var(--ac); margin: 6px 0; }
+.mut { color: var(--mut); font-size: 14px; }
+.btn { background: var(--ac); color: #fff; border: 0; border-radius: 10px; padding: 12px 22px; font-size: 16px; cursor: pointer; margin: 4px; transition: 0.2s; }
+.btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn.ghost { background: none; color: var(--ac); border: 1px solid var(--ac); }
+.btn.ghost:hover { background: var(--ac); color: #fff; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.dua { font-size: 24px; line-height: 2.3; text-align: justify; padding: 8px 4px; }
+.dua p { margin: 0 0 14px; }
+.dua-wrap { background: var(--card); border: 1px solid var(--bd); border-radius: 14px; padding: 16px; margin-bottom: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+
+.bar { height: 12px; background: var(--bd); border-radius: 8px; overflow: hidden; margin: 12px 0; }
+.bar i { display: block; height: 100%; width: 0; background: var(--gold); transition: width 0.2s; }
+
+.heat { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 12px; }
+.heat span { aspect-ratio: 1; border-radius: 6px; background: var(--bd); }
+.heat span.on { background: var(--gold); }
+.heat span.today { outline: 2px solid var(--ac); }
+ul.hist { list-style: none; padding: 0; margin: 0; text-align: left; line-height: 2; }
+.fs { display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 10px; }
+
+/* =========================================
+   قسم التواصل (Contact Me) المستوحى من الصورة 
+   ========================================= */
+.contact-footer {
+  margin-top: 40px;
+  /* خلفية متدرجة تحاكي الصورة (أزرق مشع من الأعلى للأسفل الداكن) */
+  background: radial-gradient(circle at top center, #1a237e 0%, #050914 70%, #000000 100%);
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.contact-content {
+  padding: 50px 20px;
+}
+.contact-footer h2 {
+  margin-top: 0;
+  color: #ffffff;
+  font-size: 38px;
+  margin-bottom: 35px;
+  font-family: "Times New Roman", serif;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+}
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  opacity: 0.85;
+}
+.social-icons a:hover {
+  opacity: 1;
+  transform: translateY(-5px);
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.6));
+}
+.social-icons svg {
+  width: 48px;
+  height: 48px;
+  fill: currentColor;
+}
+.copyright {
+  /* شريط أسود صريح أسفل الفوتر للحقوق كما في الصورة */
+  background-color: #000000;
+  color: #777777;
+  font-size: 14px;
+  padding: 18px 10px;
+  margin: 0;
+  letter-spacing: 1px;
+  border-top: 1px solid #111;
+  direction: ltr; /* لضمان ظهور النص الإنجليزي بشكل صحيح */
+}
 </style>
 </head>
 <body>
@@ -97,7 +138,7 @@ ul.hist{list-style:none;padding:0;margin:0;text-align:left;line-height:2}
 </div>
 <div class="ov" id="ov"></div>
 
-<!-- القائمة الجانبية (تفتح من اليسار) -->
+<!-- القائمة الجانبية -->
 <nav class="side" id="side">
   <div class="who" id="userInfo"></div>
   <a data-go="home">🏠 الرئيسية</a>
@@ -110,83 +151,121 @@ ul.hist{list-style:none;padding:0;margin:0;text-align:left;line-height:2}
 </nav>
 
 <main>
+  <!-- الرئيسية -->
+  <section id="home" class="show">
+    <div class="grid2">
+      <div class="card" data-go="ashura" style="cursor:pointer">
+        <div class="mut">📖 زيارة عاشوراء — أيام القراءة</div>
+        <div class="big" id="hAshura">0</div>
+      </div>
+      <div class="card" data-go="ahd" style="cursor:pointer">
+        <div class="mut">🌅 دعاء العهد — 🔥 أيام متواصلة</div>
+        <div class="big" id="hAhd">0</div>
+      </div>
+    </div>
+    <div class="card">
+      <div id="ahdStatus" class="mut"></div>
+      <button class="btn" data-go="ahd">اذهب لدعاء العهد</button>
+      <button class="btn ghost" data-go="ashura">زيارة عاشوراء</button>
+    </div>
+  </section>
 
-<!-- الرئيسية -->
-<section id="home" class="show">
-  <div class="grid2">
-    <div class="card" data-go="ashura" style="cursor:pointer"><div class="mut">📖 زيارة عاشوراء — أيام القراءة</div><div class="big" id="hAshura">0</div></div>
-    <div class="card" data-go="ahd" style="cursor:pointer"><div class="mut">🌅 دعاء العهد — 🔥 أيام متواصلة</div><div class="big" id="hAhd">0</div></div>
-  </div>
-  <div class="card">
-    <div id="ahdStatus" class="mut"></div>
-    <button class="btn" data-go="ahd">اذهب لدعاء العهد</button>
-    <button class="btn ghost" data-go="ashura">زيارة عاشوراء</button>
-    <p>Crated By(uzm.ali) -- علي عباس البراهيم</p>
-  </div>
-</section>
+  <!-- زيارة عاشوراء -->
+  <section id="ashura">
+    <div class="fs">حجم الخط <input type="range" min="18" max="40" value="24" class="fsr"></div>
 
-<!-- زيارة عاشوراء -->
-<section id="ashura">
-  <div class="fs">حجم الخط <input type="range" min="18" max="40" value="24" class="fsr"></div>
+    <div class="dua-wrap">
+      <div class="dua" id="ashuraText">
+        <p>اَلسَّلامُ عَلَيْكَ يَا أَبَا عَبْدِ اللهِ ، اَلسَّلامُ عَلَيْكَ يَا بْنَ رَسُولِ اللهِ...</p>
+        <p style="color:var(--gold);font-weight:bold">ثمّ تقول مائة مرّة :</p>
+        <p>اَللَّـهُمَّ الْعَنْ أَوَّلَ ظَالِمٍ ظَلَمَ حَقَّ مُحَمَّدٍ وَّآلِ مُحَمَّدٍ...</p>
+        <p style="color:var(--gold);font-weight:bold">ثمّ تقول :</p>
+        <p>اَللَّـهُمَّ خُصَّ أَنْتَ أَوَّلَ ظَالِمٍ بِاللَّعْنِ مِنِّي...</p>
+        <p style="color:var(--gold);font-weight:bold">ثمّ تسجد وتقُول :</p>
+        <p>اَللَّـهُمَّ لَكَ الْحَمْدُ حَمْدَ الشَّاكِرِينَ لَكَ عَلَى مُصَابِهِمْ...</p>
+      </div>
+    </div>
 
-  <div class="dua-wrap"><div class="dua" id="ashuraText">
-    <p>اَلسَّلامُ عَلَيْكَ يَا أَبَا عَبْدِ اللهِ ، اَلسَّلامُ عَلَيْكَ يَا بْنَ رَسُولِ اللهِ (اَلسَّلامُ عَلَيْكَ يَا خِيَرَةَ اللهِ وَابْنَ خِيَرَتِهِ ) اَلسَّلامُ عَلَيْكَ يَا بْنَ أَميرِ الْمُؤْمِنِينَ وَابْنَ سَيِّدِ الْوَصِيِّينَ ، اَلسَّلامُ عَلَيْكَ يَا بْنَ فاطِمَةَ سَيِّدَةِ نِسَاءِ الْعَالَمِينَ ، اَلسَّلامُ عَلَيْكَ يَا ثَأْرَ اللهِ وَابْنَ ثَأْرِهِ وَالْوِتْرَ الْمَوْتُورَ ، اَلسَّلامُ عَلَيْكَ وَعَلَى الْأَرْوَاحِ الَّتِي حَلَّتْ بِفِنَائِكَ ، عَلَيْكُم مِّنِّي جَمِيعاً سَلامُ اللهِ أَبَداً مَّا بَقِيتُ وَبَقِيَ اللَّيْلُ وَالنَّهَارُ ، يَا أَبَا عَبْدِ اللهِ لَقَدْ عَظُمَتِ الرَّزِيَّةُ وَجَلَّتْ ، وَعَظُمَتِ الْمُصِيبَةُ بِكَ عَلَيْنا وَعَلَى جَمِيعِ أَهْلِ الْإِسْلَامِ ، وَجَلَّتْ وَعَظُمَتْ مُصِيبَتُكَ فِي السَّمَاوَاتِ عَلَى جَمِيعِ أَهْلِ السَّمَاوَاتِ ، فَلَعَنَ اللهُ أُمَّةً أَسَّسَتْ أَسَاسَ الظُّلْمِ وَالْجَوْرِ عَلَيْكُمْ أَهْلَ الْبَيْتِ ، وَلَعَنَ اللهُ أُمَّةً دَفَعَتْكُمْ عَن مَّقامِكُمْ وَأَزالَتْكُمْ عَن مَّراتِبِكُمُ الَّتي رَتَّبَكُمُ اللهُ فِيهَا ، وَلَعَنَ اللهُ أُمَّةً قَتَلَتْكُمْ وَلَعَنَ اللهُ الْمُمَهِّدِينَ لَهُمْ بِالتَّمْكِينِ مِنْ قِتَالِكُمْ ، بَرِئْتُ إِلَى اللهِ وَإِلَيْكُمْ مِنْهُمْ وَمِنْ أَشْيَاعِهِمْ وَأَتْبَاعِهِمْ وَأَوْلِيَائِهِم ، يَا أَبَا عَبْدِ اللهِ إِنِّي سِلْمٌ لِمَنْ سَالَمَكُمْ وَحَرْبٌ لِّمَنْ حَارَبَكُمْ إِلَى يَوْمِ الْقِيَامَةِ ، وَلَعَنَ اللهُ آلَ زِيَادٍ وَّآلَ مَرْوَانَ ، وَلَعَنَ اللهُ بَنِي أُمَيَّةَ قَاطِبَةً ، وَّلَعَنَ اللهُ ابْنَ مَرْجَانَةَ ، وَلَعَنَ اللهُ عُمَرَ بْنَ سَعْدٍ ، وَّلَعَنَ اللهُ شِمْراً ، وَّلَعَنَ اللهُ أُمَّةً أَسْرَجَتْ وَأَلْجَمَتْ وَتَنَقَّبَتْ لِقِتَالِكَ ، بِأَبِي أَنْتَ وَأُمِّي لَقَدْ عَظُمَ مُصَابِي بِكَ ، فَأَسْأَلُ اللهَ الَّذِي أَكْرَمَ مَقَامَكَ وَأَكْرَمَنِي بِكَ أَن يَّرْزُقَنِي طَلَبَ ثَأْرِكَ مَعَ إِمَامٍ مَّنْصُورٍ مِنْ أَهْلِ بَيْتِ مُحَمَّدٍ ـ صَلَّى اللهُ عَلَيْهِ وَآلِهِ ـ ، اَللَّهُمَّ اجْعَلْنِي عِنْدَكَ وَجيهاً بِالْحُسَيْنِ ـ عَلَيْهِ السَّلامُ ـ فِي الدُّنْيَا وَالْآخِرَةِ ، يَا أَبَا عَبْدِ اللهِ إِنِّي أَتَقَرَّبُ إِلى اللهِ وَإِلَى رَسُولِهِ وَإِلَى أَمِيرِ الْمُؤْمِنِينَ وَإِلَى فَاطِمَةَ وَإِلَى الْحَسَنِ وَإِلَيْكَ بِمُوَالاتِكَ وَبِالْبَرَاءَةِ [ مِمَّنْ قَاتَلَكَ وَنَصَبَ لَكَ الْحَرْبَ وَبِالْبَراءَةِ مِمَّنْ أَسَّسَ أَسَاسَ الظُّلْمِ وَالْجَوْرِ عَلَيْكُمْ وَأَبْرَأُ إِلَى اللهِ وَإِلَى رَسُولِهِ ] مِمَّنْ أَسَّسَ أَسَاسَ ذَلِكَ وَبَنَى عَلَيْهِ بُنْيَانَهُ وَجَرى فِي ظُلْمِهِ وَجَوْرِهِ عَلَيْكُمْ وَعَلَى أَشْيَاعِكُمْ ، بَرِئْتُ إِلَى اللهِ وَإِلَيْكُم مَِنْهُمْ ، وَأَتَقَرَّبُ إِلَى اللهِ ثُمَّ إِلَيْكُمْ بِمُوَالاتِكُمْ وَمُوَالاةِ وَلِيِّكُمْ وَبِالْبَرَاءَةِ مِنْ أَعْدَائِكُمْ وَالنَّاصِبِينَ لَكُمُ الْحَرْبَ وَبِالْبَرَاءَةِ مِنْ أَشْيَاعِهِمْ وَأَتْبَاعِهِمْ ، إِنِّي سِلْمٌ لِّمَنْ سَالَمَكُمْ وَحَرْبٌ لِّمَنْ حَارَبَكُمْ وَوَلِيٌّ لِّمَنْ وَالاكُمْ وَعَدُوٌّ لَِمَنْ عَادَاكُمْ ، فَأَسْأَلُ اللهَ الَّذِي أَكْرَمَنِي بِمَعْرِفَتِكُمْ وَمَعْرِفَةِ أَوْلِيَائِكُمْ وَرَزَقَنِيَ الْبَرَاءَةَ مِنْ أَعْدَائِكُمْ أَن يَّجْعَلَنِي مَعَكُمْ فِي الدُّنْيا وَالْآخِرَةِ ، وَأَن يُّثَبِّتَ لِي عِنْدَكُمْ قَدَمَ صِدْقٍ فِي الدُّنْيا وَالْآخِرَةِ ، وَأَسْأَلُهُ أَن يُّبَلِّغَنِيَ الْمَقَامَ الْمَحْمُودَ لَكُمْ عِنْدَ اللهِ ، وَأَن يَّرْزُقَني طَلَبَ ثَأْرِي مَعَ إِمَامِ هُدًى ظَاهِرٍ نَّاطِقٍ بِالْحَقِّ مِنْكُمْ ، وَأَسْألُ اللهَ بِحَقِّكُمْ وَبِالشَّأْنِ الَّذِي لَكُمْ عِنْدَهُ أَنْ يُعْطِيَنِي بِمُصَابِي بِكُمْ أَفْضَلَ مَا يُعْطِي مُصَاباً بِمُصِيبَتِهِ ، مُصِيبَةً مَّا أَعْظَمَهَا وَأَعْظَمَ رَزِيَّتَهَا فِي الْإِسْلامِ وَفِي جَمِيعِ السَّمَاوَاتِ وَالْأرْضِ ، اَللَّـهُمَّ اجْعَلْنِي فِي مَقَامِي هَذَا مِمَّنْ تَنَالُهُ مِنْكَ صَلَوَاتٌ وَّرَحْمَةٌ وَّمَغْفِرَةٌ ، اَللَّـهُمَّ اجْعَلْ مَحْيَايَ مَحْيَا مُحَمَّدٍ وَّآلِ مُحَمَّدٍ ، وَّمَمَاتِي مَمَاتَ مُحَمَّدٍ وََآلِ مُحَمَّدٍ ، اَللّّـهُمَّ إِنَّ هَذَا يَوْمٌ تَبَرَّكَتْ بِهِ بَنُو أُمَيَّةَ وَابْنُ آكِلَةِ الْأَكْبَادِ اللَّعِينُ بْنُ اللَّعِينِ عَلَى لِسَانِكَ وَلِسَانِ نَبِيِّكَ ـ صَلَّى اللهُ عَلَيْهِ وَآلِهِ ـ فِي كُلِّ مَوْطِنٍ وَّمَوْقِفٍ وَّقَفَ فِيهِ نَبِيُّكَ ـ صَلَّى اللهُ عَلَيْهِ وَآلِهِ ـ ، اَللَّـهُمَّ الْعَنْ أَبَا سُفْيَانَ وَمُعَاوِيَةَ وَيَزيدَ بْنَ مُعَاوِيَةَ عَلَيْهِم مِّنْكَ اللَّعْنَةُ أَبَدَ الْآبِدِينَ ، وَهَذَا يَوْمٌ فَرِحَتْ بِهِ آلُ زِيَادٍ وَآلُ مَرْوَانَ بِقَتْلِهِمُ الْحُسَيْنَ ـ صَلَواتُ اللهِ عَلَيْهِ ـ ، اَللَّـهُمَّ فَضَاعِفْ عَلَيْهِمُ اللَّعْنَ مِنْكَ وَالْعَذَابَ الْأَلِيمَ ، اَللَّـهُمَّ إِنِّي أَتَقَرَّبُ إِلَيْكَ فِي هَذَا الْيَوْمِ وَفِي مَوْقِفِي هَذَا وَأَيَّامِ حَيَاتِي بِالْبَرَاءَةِ مِنْهُمْ وَاللَّعْنَةِ عَلَيْهِمْ وَبِالْمُوَالاةِ لِنَبِيِّكَ وَآلِ نَبِيِّكَ ـ عَلَيْهِ وَعَلَيْهِمُ السَّلامُ</p>
-    <p style="color:var(--gold);font-weight:bold">ثمّ تقول مائة مرّة :</p>
-    <p>اَللَّـهُمَّ الْعَنْ أَوَّلَ ظَالِمٍ ظَلَمَ حَقَّ مُحَمَّدٍ وَّآلِ مُحَمَّدٍ وَآخِرَ تَابِعٍ لَهُ عَلَى ذلِكَ ، اَللّـَهُمَّ الْعَنِ الْعِصَابَةَ الَّتي جَاهَدَتِ الْحُسَيْنَ ـ عَلَيْهِ السَّلَامُ ـ وَشَايَعَتْ وَبَايَعَتْ وَتَابَعَتْ عَلَى قَتْلِهِ ، اَللَّـهُمَّ الْعَنْهُمْ جَمِيعاً - اَلسَّلامُ عَلَيْكَ يَا أَبَا عَبْدِ اللهِ وَعَلَى الْأَرْوَاحِ الَّتِي حَلَّتْ بِفِنَائِكَ ، عَلَيْكَ مِنِّي سَلامُ اللهِ أَبَداً مَّا بَقِيتُ وَبَقِيَ اللَّيْلُ وَالنَّهَارُ ، وَلا جَعَلَهُ اللهُ آخِرَ الْعَهْدِ مِنِّي لِزِيَارَتِكُمْ ، اَلسَّلامُ عَلَى الْحُسَيْنِ ، وَعَلَى عَلِيِّ بْنِ الْحُسَيْنِ وَعَلَى أَوْلادِ الْحُسَيْنِ وَعَلَى أَصْحَابِ الْحُسَيْنِ</p>
-    <p style="color:var(--gold);font-weight:bold">ثمّ تقول :</p>
-    <p>اَللَّـهُمَّ خُصَّ أَنْتَ أَوَّلَ ظَالِمٍ بِاللَّعْنِ مِنِّي ، وَابْدَأْ بِهِ أَوَّلاً ، ثُمَّ الْعَنِ الثَّانيَ وَالثَّالِثَ وَالرَّابِعَ ، اَللّـَهُمَّ الْعَنْ يَزيدَ خَامِساً ، وَالْعَنْ عُبَيْدَ اللهِ بْنَ زِيَادٍ وَّابْنَ مَرْجانَةَ وَعُمَرَ بْنَ سَعْدٍ وَّشِمْراً وَآلَ أَبِي سُفْيَانَ وَآلَ زِيادٍ وََآلَ مَرْوَانَ إِلَى يَوْمِ الْقِيَامَةِ</p>
-    <p style="color:var(--gold);font-weight:bold">ثمّ تسجد وتقُول :</p>
-    <p>اَللَّـهُمَّ لَكَ الْحَمْدُ حَمْدَ الشَّاكِرِينَ لَكَ عَلَى مُصَابِهِمْ ، اَلْحَمْدُ للهِ عَلَى عَظِيمِ رَزِيَّتِي ، اَللَّـهُمَّ ارْزُقْنِي شَفَاعَةَ الْحُسَيْنِ يَوْمَ الْوُرُودِ ، وَثَبِّتْ لِي قَدَمَ صِدْقٍ عِنْدَكَ مَعَ الْحُسَيْنِ وَأَصْحَابِ الْحُسَيْنِ اَلَّذِينَ بَذَلُوا مُهَجَهُمْ دُونَ الْحُسَيْنِ عَلَيْهِ السَّلامُ .</p>
-  </div></div>
+    <div class="card">
+      <div class="mut">عدّاد المائة لعن (للتسبيح أثناء القراءة)</div>
+      <div class="big" id="tapNum">0</div>
+      <div class="bar"><i id="tapBar"></i></div>
+      <button class="btn" id="tapBtn">+1</button>
+      <button class="btn ghost" id="tapReset">إعادة</button>
+    </div>
 
-  <div class="card">
-    <div class="mut">عدّاد المائة لعن (للتسبيح أثناء القراءة)</div>
-    <div class="big" id="tapNum">0</div>
-    <div class="bar"><i id="tapBar"></i></div>
-    <button class="btn" id="tapBtn">+1</button>
-    <button class="btn ghost" id="tapReset">إعادة</button>
-  </div>
+    <div class="card">
+      <div class="mut">عدد أيام القراءة</div>
+      <div class="big" id="counterDisplay">0</div>
+      <button id="addBtn" class="btn">سجل قراءة اليوم</button>
+      <button id="resetBtn" class="btn ghost">تصفير العداد</button>
+    </div>
+  </section>
 
-  <div class="card">
-    <div class="mut">عدد أيام القراءة</div>
-    <div class="big" id="counterDisplay">0</div>
-    <button id="addBtn" class="btn">سجل قراءة اليوم</button>
-    <button id="resetBtn" class="btn ghost">تصفير العداد</button>
-  </div>
-</section>
+  <!-- دعاء العهد -->
+  <section id="ahd">
+    <div class="card">
+      <div class="mut">أيام متواصلة</div>
+      <div class="big" id="ahdStreak">0</div>
+      <div class="mut" id="ahdBest"></div>
+      <div id="ahdTimer" class="mut" style="margin:10px 0"></div>
+      <button class="btn" id="ahdBtn">سجّلت قراءة دعاء العهد اليوم</button>
+    </div>
 
-<!-- دعاء العهد -->
-<section id="ahd">
-  <div class="card">
-    <div class="mut">أيام متواصلة</div>
-    <div class="big" id="ahdStreak">0</div>
-    <div class="mut" id="ahdBest"></div>
-    <div id="ahdTimer" class="mut" style="margin:10px 0"></div>
-    <button class="btn" id="ahdBtn">سجّلت قراءة دعاء العهد اليوم</button>
-  </div>
+    <div class="fs">حجم الخط <input type="range" min="18" max="40" value="24" class="fsr"></div>
+    <div class="dua-wrap">
+      <div class="dua" id="ahdText">
+        <p>بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ : اَللَّهُمَّ رَبَّ النُّورِ الْعَظِيمِ...</p>
+        <p style="color:var(--gold);font-weight:bold">ثمّ تضرب على فخذك الأيمن بيدك ثلاث مرّات وتقول كلّ مرّة :</p>
+        <p>الْعَجَلَ الْعَجَلَ يَا مَوْلايَ يَا صَاحِبَ الزَّمَانِ</p>
+      </div>
+    </div>
+  </section>
 
-  <div class="fs">حجم الخط <input type="range" min="18" max="40" value="24" class="fsr"></div>
-  <div class="dua-wrap"><div class="dua" id="ahdText">
-    <p>بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ : اَللَّهُمَّ رَبَّ النُّورِ الْعَظِيمِ وَرَبَّ الْكُرْسِيِّ الرَّفِيعِ وَرَبَّ الْبَحْرِ الْمَسْجُورِ وَمُنْزِلَ التَّوْرَاةِ وَالإِنْجِيلِ وَالزَّبُورِ وَرَبَّ الظِّلِّ وَالْحَرُورِ وَمُنْزِلَ الْقُرْآنِ العَظِيمِ وَرَبَّ الْمَلائِكَةِ الْمُقَرَّبِينَ وَالأَنْبِيَاءِ وَالْمُرْسَلِينَ ، اَللَّهُمَّ إِنِّي أَسْأَلُكَ بِوَجْهِكَ الْكَرِيمِ وَبِنُورِ وَجْهِكَ الْمُنِيرِ وَمُلْكِكَ القَدِيمِ ، يَا حَيُّ يَا قَيُّومُ أَسْأَلُكَ بِاسْمِكَ الَّذِي أَشْرَقَتْ بِهِ السَّمَاوَاتُ وَالأَرَضُونَ وَبِاسْمِكَ الَّذِي يَصْلُحُ بِهِ الأوَّلُونَ وَالآخِرُونَ ، يَا حَيًّا قَبْلَ كُلِّ حَيٍّ وَيَا حَيًّا بَعْدَ كُلِّ حَيٍّ وَيَا حَيًّا حِينَ لا حَيَّ يَا مُحْيِيَ الْمَوْتَى وَمُمِيتَ الأَحْيَاءِ يَا حَيُّ لا إِلَهَ إِلَّا أَنْتَ ، اَللَّهُمَّ بَلِّغْ مَوْلانَا الإِمَامَ الْهَادِيَ الْمَهْدِيَّ الْقَائِمَ بِأَمْرِكَ ـ صَلوَاتُ اللهِ عَلَيْهِ وَعَلَى آبَائِهِ الطَّاهِرِينَ ـ عَنْ جَمِيعِ الْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ فِي مَشَارِقِ الأَرْضِ وَمَغَارِبِهَا سَهْلِهَا وَجَبَلِهَا وَبَرِّهَا وَبَحْرِهَا وَعَنِّي وَعَن وَّالِدَيَّ مِنَ الصَّلَوَاتِ زِنَةَ عَرْشِ اللهِ وَمِدَادَ كَلِمَاتِهِ وَمَا أحْصَاهُ عِلْمُهُ وَأَحَاطَ بِهِ كِتَابُهُ ، اَللَّهُمَّ إِنِّي أُجَدِّدُ لَهُ فِي صَبِيحةِ يَوْمِي هَذَا وَمَا عِشْتُ مِنْ أَيَّامِي عَهْداً وَعَقْداً وَبَيْعَةً لَهُ فِي عُنُقِي لا أَحُولُ عَنْهَا وَلا أَزُولُ أَبَداً ، اَللَّهُمَّ اجْعَلْنِي مِنْ أَنْصَارِهِ وَأَعْوَانِهِ وَالذَّابِّينَ عَنْهُ وَالْمُسَارِعِينَ إِلَيْهِ فِي قَضاءِ حَوَائِجِهِ وَالْمُمْتَثِلِينَ لِأَوَامِرِهِ وَالْمُحَامِينَ عَنْهُ وَالسَّابِقِينَ إِلَى إِرَادَتِهِ وَالْمُسْتَشْهَدِينَ بَيْنَ يَدَيْهِ ، اَللَّهُمَّ إِنْ حَالَ بَيْنِي وَبَيْنَهُ الْمَوْتُ الَّذِي جَعَلْتَهُ عَلَى عِبَادِكَ حَتْماً مَقْضِيًّا فَأَخْرِجْنِي مِنْ قَبْرِي مُؤْتَزِراً كَفَنِي شَاهِراً سَيْفِي مُجَرِّداً قَنَاتِي مُلَبِّياً دَعْوَةَ الدَّاعِي فِي الْحَاضِرِ وَالْبَادِي ، اَللَّهُمَّ أَرِنِي الطَّلْعَةَ الرَّشِيدَةَ وَالْغُرَّةَ الْحَمِيدَةَ وَاكْحُلْ ناظِرِي بِنَظْرَةٍ مِّنِّي إِلَيْهِ وَعَجِّلْ فَرَجَهُ وَسَهِّلْ مَخْرَجَهُ وَأَوْسِعْ مَنْهَجَهُ وَاسْلُكْ بِي مَحَجَّتَهُ وَأَنْفِذْ أَمْرَهُ وَاشْدُدْ أَزْرَهُ ، وَاعْمُرِ ـ اللَّهُمَّ ـ بِهِ بِلادَكَ وَأَحْيِ بِه عِبَادَكَ فَإِنَّكَ قُلْتَ ـ وَقَوْلُكَ الْحَقُّ ـ : (( ظَهَرَ الْفَسَادُ فِي الْبَرِّ وَالْبَحْرِ بِمَا كَسَبَتْ أَيْدِي النَّاسِ )) ، فَأَظْهِرِ ـ اللَّهُمَّ ـ لَنا وَلِيَّكَ وَابْنَ بِنْتِ نَبِيِّكَ الْمُسَمّى بِاسْمِ رَسُولِكَ حَتَّى لا يَظْفَرَ بِشَيْءٍ مِنَ الْبَاطِلِ إِلَّا مَزَّقَهُ وَيَحِقَّ الْحَقَّ وَيُحَقِّقَهُ ، وَاجْعَلْهُ ـ اللّهُمَّ ـ مَفْزَعاً لِمَظْلُومِ عِبَادِكَ وَنَاصِراً لِمْن لَّا يَجِدُ لَهُ ناصِراً غَيْرَكَ وَمُجَدِّداً لِمَا عُطِّلَ مِنْ أَحْكَامِ كِتَابِكَ وَمُشَيِّداً لِّمَا وَرَدَ مِنْ أَعْلامِ دِينِكَ وَسُنَنِ نَبِيِّكَ ـ صَلَّى اللهُ عَلَيْهِ وَآلِهِ ـ ، وَاجْعَلْهُ ـ اللَّهُمَّ ـ مِمَّنْ حَصَّنْتَهُ مِنْ بَأْسِ الْمُعْتَدِينَ ، اَللَّهُمَّ وَسُرَّ نَبِيَّكَ مُحَمَّداً ـ صَلَّى اللهُ عَلَيْهِ وَآلِهِ ـ بِرُؤْيَتِهِ وَمَنْ تَبِعَهُ عَلَى دَعْوَتِهِ وَارْحَمِ اسْتِكانَتَنَا بَعْدَهُ ، اَللَّهُمَّ اكْشِفْ هَذِهِ الْغُمَّةَ عَنْ هَذِهِ الأُمَّةِ بِحُضُورِهِ وَعَجِّل لَّنَا ظُهُورَهُ (( إِنَّهُمْ يَرَوْنَهُ بَعِيداً وَنَرَاهُ قَرِيباً )) بِرَحْمَتِكَ يَا أَرْحَمَ الرَّاحِمِينَ .</p>
-    <p style="color:var(--gold);font-weight:bold">ثمّ تضرب على فخذك الأيمن بيدك ثلاث مرّات وتقول كلّ مرّة :</p>
-    <p>الْعَجَلَ الْعَجَلَ يَا مَوْلايَ يَا صَاحِبَ الزَّمَانِ</p>
-  </div></div>
-</section>
-
-<!-- السجل -->
-<section id="stats">
-  <div class="card">
-    <h3 style="margin-top:0">دعاء العهد — آخر 28 يوم</h3>
-    <div class="heat" id="heat"></div>
-  </div>
-  <div class="card">
-    <h3 style="margin-top:0">سجل زيارة عاشوراء</h3>
-    <p id="lastReadDisplay" dir="ltr" class="mut"></p>
-    <ul id="readingHistoryList" dir="ltr" class="hist"></ul>
-  </div>
-</section>
-
+  <!-- السجل -->
+  <section id="stats">
+    <div class="card">
+      <h3 style="margin-top:0">دعاء العهد — آخر 28 يوم</h3>
+      <div class="heat" id="heat"></div>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">سجل زيارة عاشوراء</h3>
+      <p id="lastReadDisplay" dir="ltr" class="mut"></p>
+      <ul id="readingHistoryList" dir="ltr" class="hist"></ul>
+    </div>
+  </section>
 </main>
+
+<!-- قسم التواصل الذي يظهر في أسفل جميع الصفحات -->
+<footer class="contact-footer">
+  <div class="contact-content">
+    <h2>Contact Me</h2>
+    <div class="social-icons">
+      <!-- انستغرام -->
+      <a href="https://instagram.com/uzm.alii" target="_blank" title="Instagram">
+        <svg viewBox="0 0 24 24">
+          <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.25-2.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5z"/>
+        </svg>
+      </a>
+      <!-- الإيميل -->
+      <a href="mailto:ali2070abbas@gmail.com" title="Email">
+        <svg viewBox="0 0 24 24">
+          <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67z"/>
+          <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908z"/>
+        </svg>
+      </a>
+      <!-- GitHub (تم تصحيح الرابط ليوجه للحساب بدل الإيميل) -->
+      <a href="https://github.com/naruto2005uzmaki" target="_blank" title="GitHub">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="copyright">
+    Copyrights &copy; 2026 by Ali Abbas Alibrahim. All Rights Reserved.
+  </div>
+</footer>
 
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
@@ -225,7 +304,7 @@ function save(){
   },{merge:true}).catch(e => console.error("save error", e));
 }
 
-// منطق التصفير: يرجع true إذا تغيّر شيء
+// منطق التصفير
 function evalAhd(){
   if(!ahdStreak) return false;
   const now = new Date(), today = key(now);
@@ -250,18 +329,20 @@ function render(){
   const now = new Date(), today = key(now);
   const done = ahdLastRead === today;
   let msg, timer = "";
-  if(done){ msg = "✅ سجلت دعاء العهد اليوم. موعدك القادم بكرة قبل الساعة " + CUTOFF_HOUR + ".";
-            timer = msg; }
-  else if(ahdStreak > 0){
+  if(done){ 
+      msg = "✅ سجلت دعاء العهد اليوم. موعدك القادم بكرة قبل الساعة " + CUTOFF_HOUR + ".";
+      timer = msg; 
+  } else if(ahdStreak > 0){
     const end = new Date(now); end.setHours(CUTOFF_HOUR,0,0,0);
     const ms = end - now, h = Math.floor(ms/36e5), m = Math.floor(ms%36e5/6e4);
     timer = "⏳ باقي " + h + " ساعة و " + m + " دقيقة قبل ما يتصفر العداد";
     msg = "🔥 سلسلتك " + ahdStreak + " يوم — لا تنسى دعاء العهد اليوم. " + timer;
   } else { msg = "ابدأ سلسلة دعاء العهد اليوم بإذن الله."; timer = msg; }
+  
   $("ahdStatus").innerText = msg;
   $("ahdTimer").innerText = timer;
   $("ahdBtn").disabled = done;
-  $("ahdBtn").style.opacity = done ? .5 : 1;
+  $("ahdBtn").style.opacity = done ? 0.5 : 1;
 
   let h = "";
   for(let i=27;i>=0;i--){
@@ -272,7 +353,7 @@ function render(){
   $("heat").innerHTML = h;
 }
 
-// وضع تجريبي: إذا ما تحمّل Firebase (مثلاً في المعاينة) نشتغل بحفظ محلي على الجهاز
+// وضع تجريبي
 if(!HAS_FB){
   const d = JSON.parse(localStorage.getItem("offlineData") || "{}");
   count = d.count || 0; readingHistory = d.readingHistory || [];
@@ -302,7 +383,7 @@ if(HAS_FB) auth.onAuthStateChanged(user => {
     render();
   }).catch(e => {
     console.error("Error getting document:", e);
-    loaded = true; // لا نخلي الأزرار معطلة لو فشل التحميل
+    loaded = true; 
     render();
     alert("تعذر تحميل بياناتك من السيرفر: " + e.message + "\nتأكد من الإنترنت ومن قواعد Firestore.");
   });
@@ -333,298 +414,7 @@ $("ahdBtn").onclick = () => {
   if(!loaded) return;
   const today = key(new Date());
   if(ahdLastRead === today){ alert("سجلت دعاء العهد اليوم بالفعل ✅"); return; }
-  evalAhd();               // لو فاته الموعد يبدأ من جديد
-  ahdStreak++;
-  ahdBest = Math.max(ahdBest, ahdStreak);
-  ahdLastRead = today;
-  if(!ahdHistory.includes(today)) ahdHistory.push(today);
-  render(); save();
-  if(navigator.vibrate) navigator.vibrate(60);
-};
-
-// عدّاد المائة (محلي على الجهاز)
-let tap = +(localStorage.getItem("ashuraTap") || 0);
-function renderTap(){
-  $("tapNum").innerText = tap + " / 100";
-  $("tapBar").style.width = Math.min(tap,100) + "%";
-  localStorage.setItem("ashuraTap", tap);
-}
-$("tapBtn").onclick = () => { if(tap < 100){ tap++; if(navigator.vibrate) navigator.vibrate(15); } renderTap(); };
-$("tapReset").onclick = () => { tap = 0; renderTap(); };
-renderTap();
-
-// حجم الخط
-document.querySelectorAll(".fsr").forEach(r => r.oninput = () =>
-  document.querySelectorAll(".dua").forEach(p => p.style.fontSize = r.value + "px"));
-
-// القائمة والتنقل
-const side = $("side"), ov = $("ov");
-const titles = {home:"الرئيسية", ashura:"زيارة عاشوراء", ahd:"دعاء العهد", stats:"السجل والإحصائيات"};
-function toggle(o){ side.classList.toggle("open", o); ov.classList.toggle("show", o); }
-$("burger").onclick = () => toggle(!side.classList.contains("open"));
-ov.onclick = () => toggle(false);
-function go(id){
-  document.querySelectorAll("main section").forEach(s => s.classList.toggle("show", s.id === id));
-  document.querySelectorAll(".side a").forEach(a => a.classList.toggle("active", a.dataset.go === id));
-  $("pageTitle").innerText = titles[id];
-  toggle(false); window.scrollTo(0,0);
-  if(location.hash !== "#" + id) location.hash = id;
-}
-document.querySelectorAll("[data-go]").forEach(el => el.onclick = () => go(el.dataset.go));
-window.onhashchange = () => { const h = location.hash.slice(1); if(titles[h]) go(h); };
-go(titles[location.hash.slice(1)] ? location.hash.slice(1) : "home");
-
-// الوضع الليلي
-if(localStorage.getItem("theme") === "dark") document.body.classList.add("dark-theme");
-$("darkModeToggle").onclick = () => {
-  document.body.classList.toggle("dark-theme");
-  localStorage.setItem("theme", document.body.classList.contains("dark-theme") ? "dark" : "light");
-};
-</script>
-</body>
-</html>
-<div class="topbar">
-  <h1 id="pageTitle">الرئيسية</h1>
-  <button class="burger" id="burger" aria-label="القائمة">☰</button>
-</div>
-<div class="ov" id="ov"></div>
-
-<!-- القائمة الجانبية (تفتح من اليسار) -->
-<nav class="side" id="side">
-  <div class="who" id="userInfo"></div>
-  <a data-go="home">🏠 الرئيسية</a>
-  <a data-go="ashura">📖 زيارة عاشوراء</a>
-  <a data-go="ahd">🌅 دعاء العهد</a>
-  <a data-go="stats">📊 السجل والإحصائيات</a>
-  <div class="sp"></div>
-  <button id="darkModeToggle">🌙 / ☀️ الوضع الليلي</button>
-  <button id="logoutBtn">تسجيل الخروج</button>
-</nav>
-
-<main>
-
-<!-- الرئيسية -->
-<section id="home" class="show">
-  <div class="grid2">
-    <div class="card" data-go="ashura" style="cursor:pointer"><div class="mut">📖 زيارة عاشوراء — أيام القراءة</div><div class="big" id="hAshura">0</div></div>
-    <div class="card" data-go="ahd" style="cursor:pointer"><div class="mut">🌅 دعاء العهد — 🔥 أيام متواصلة</div><div class="big" id="hAhd">0</div></div>
-  </div>
-  <div class="card">
-    <div id="ahdStatus" class="mut"></div>
-    <button class="btn" data-go="ahd">اذهب لدعاء العهد</button>
-    <button class="btn ghost" data-go="ashura">زيارة عاشوراء</button>
-  </div>
-</section>
-
-<!-- زيارة عاشوراء -->
-<section id="ashura">
-  <div class="fs">حجم الخط <input type="range" min="18" max="40" value="24" class="fsr"></div>
-
-  <div class="dua-wrap"><div class="dua" id="ashuraText">
-    <p>اَلسَّلامُ عَلَيْكَ يَا أَبَا عَبْدِ اللهِ ، اَلسَّلامُ عَلَيْكَ يَا بْنَ رَسُولِ اللهِ (اَلسَّلامُ عَلَيْكَ يَا خِيَرَةَ اللهِ وَابْنَ خِيَرَتِهِ ) اَلسَّلامُ عَلَيْكَ يَا بْنَ أَميرِ الْمُؤْمِنِينَ وَابْنَ سَيِّدِ الْوَصِيِّينَ ، اَلسَّلامُ عَلَيْكَ يَا بْنَ فاطِمَةَ سَيِّدَةِ نِسَاءِ الْعَالَمِينَ ، اَلسَّلامُ عَلَيْكَ يَا ثَأْرَ اللهِ وَابْنَ ثَأْرِهِ وَالْوِتْرَ الْمَوْتُورَ ، اَلسَّلامُ عَلَيْكَ وَعَلَى الْأَرْوَاحِ الَّتِي حَلَّتْ بِفِنَائِكَ ، عَلَيْكُم مِّنِّي جَمِيعاً سَلامُ اللهِ أَبَداً مَّا بَقِيتُ وَبَقِيَ اللَّيْلُ وَالنَّهَارُ ، يَا أَبَا عَبْدِ اللهِ لَقَدْ عَظُمَتِ الرَّزِيَّةُ وَجَلَّتْ ، وَعَظُمَتِ الْمُصِيبَةُ بِكَ عَلَيْنا وَعَلَى جَمِيعِ أَهْلِ الْإِسْلَامِ ، وَجَلَّتْ وَعَظُمَتْ مُصِيبَتُكَ فِي السَّمَاوَاتِ عَلَى جَمِيعِ أَهْلِ السَّمَاوَاتِ ، فَلَعَنَ اللهُ أُمَّةً أَسَّسَتْ أَسَاسَ الظُّلْمِ وَالْجَوْرِ عَلَيْكُمْ أَهْلَ الْبَيْتِ ، وَلَعَنَ اللهُ أُمَّةً دَفَعَتْكُمْ عَن مَّقامِكُمْ وَأَزالَتْكُمْ عَن مَّراتِبِكُمُ الَّتي رَتَّبَكُمُ اللهُ فِيهَا ، وَلَعَنَ اللهُ أُمَّةً قَتَلَتْكُمْ وَلَعَنَ اللهُ الْمُمَهِّدِينَ لَهُمْ بِالتَّمْكِينِ مِنْ قِتَالِكُمْ ، بَرِئْتُ إِلَى اللهِ وَإِلَيْكُمْ مِنْهُمْ وَمِنْ أَشْيَاعِهِمْ وَأَتْبَاعِهِمْ وَأَوْلِيَائِهِم ، يَا أَبَا عَبْدِ اللهِ إِنِّي سِلْمٌ لِمَنْ سَالَمَكُمْ وَحَرْبٌ لِّمَنْ حَارَبَكُمْ إِلَى يَوْمِ الْقِيَامَةِ ، وَلَعَنَ اللهُ آلَ زِيَادٍ وَّآلَ مَرْوَانَ ، وَلَعَنَ اللهُ بَنِي أُمَيَّةَ قَاطِبَةً ، وَّلَعَنَ اللهُ ابْنَ مَرْجَانَةَ ، وَلَعَنَ اللهُ عُمَرَ بْنَ سَعْدٍ ، وَّلَعَنَ اللهُ شِمْراً ، وَّلَعَنَ اللهُ أُمَّةً أَسْرَجَتْ وَأَلْجَمَتْ وَتَنَقَّبَتْ لِقِتَالِكَ ، بِأَبِي أَنْتَ وَأُمِّي لَقَدْ عَظُمَ مُصَابِي بِكَ ، فَأَسْأَلُ اللهَ الَّذِي أَكْرَمَ مَقَامَكَ وَأَكْرَمَنِي بِكَ أَن يَّرْزُقَنِي طَلَبَ ثَأْرِكَ مَعَ إِمَامٍ مَّنْصُورٍ مِنْ أَهْلِ بَيْتِ مُحَمَّدٍ ـ صَلَّى اللهُ عَلَيْهِ وَآلِهِ ـ ، اَللَّهُمَّ اجْعَلْنِي عِنْدَكَ وَجيهاً بِالْحُسَيْنِ ـ عَلَيْهِ السَّلامُ ـ فِي الدُّنْيَا وَالْآخِرَةِ ، يَا أَبَا عَبْدِ اللهِ إِنِّي أَتَقَرَّبُ إِلى اللهِ وَإِلَى رَسُولِهِ وَإِلَى أَمِيرِ الْمُؤْمِنِينَ وَإِلَى فَاطِمَةَ وَإِلَى الْحَسَنِ وَإِلَيْكَ بِمُوَالاتِكَ وَبِالْبَرَاءَةِ [ مِمَّنْ قَاتَلَكَ وَنَصَبَ لَكَ الْحَرْبَ وَبِالْبَراءَةِ مِمَّنْ أَسَّسَ أَسَاسَ الظُّلْمِ وَالْجَوْرِ عَلَيْكُمْ وَأَبْرَأُ إِلَى اللهِ وَإِلَى رَسُولِهِ ] مِمَّنْ أَسَّسَ أَسَاسَ ذَلِكَ وَبَنَى عَلَيْهِ بُنْيَانَهُ وَجَرى فِي ظُلْمِهِ وَجَوْرِهِ عَلَيْكُمْ وَعَلَى أَشْيَاعِكُمْ ، بَرِئْتُ إِلَى اللهِ وَإِلَيْكُم مَِنْهُمْ ، وَأَتَقَرَّبُ إِلَى اللهِ ثُمَّ إِلَيْكُمْ بِمُوَالاتِكُمْ وَمُوَالاةِ وَلِيِّكُمْ وَبِالْبَرَاءَةِ مِنْ أَعْدَائِكُمْ وَالنَّاصِبِينَ لَكُمُ الْحَرْبَ وَبِالْبَرَاءَةِ مِنْ أَشْيَاعِهِمْ وَأَتْبَاعِهِمْ ، إِنِّي سِلْمٌ لِّمَنْ سَالَمَكُمْ وَحَرْبٌ لِّمَنْ حَارَبَكُمْ وَوَلِيٌّ لِّمَنْ وَالاكُمْ وَعَدُوٌّ لَِمَنْ عَادَاكُمْ ، فَأَسْأَلُ اللهَ الَّذِي أَكْرَمَنِي بِمَعْرِفَتِكُمْ وَمَعْرِفَةِ أَوْلِيَائِكُمْ وَرَزَقَنِيَ الْبَرَاءَةَ مِنْ أَعْدَائِكُمْ أَن يَّجْعَلَنِي مَعَكُمْ فِي الدُّنْيا وَالْآخِرَةِ ، وَأَن يُّثَبِّتَ لِي عِنْدَكُمْ قَدَمَ صِدْقٍ فِي الدُّنْيا وَالْآخِرَةِ ، وَأَسْأَلُهُ أَن يُّبَلِّغَنِيَ الْمَقَامَ الْمَحْمُودَ لَكُمْ عِنْدَ اللهِ ، وَأَن يَّرْزُقَني طَلَبَ ثَأْرِي مَعَ إِمَامِ هُدًى ظَاهِرٍ نَّاطِقٍ بِالْحَقِّ مِنْكُمْ ، وَأَسْألُ اللهَ بِحَقِّكُمْ وَبِالشَّأْنِ الَّذِي لَكُمْ عِنْدَهُ أَنْ يُعْطِيَنِي بِمُصَابِي بِكُمْ أَفْضَلَ مَا يُعْطِي مُصَاباً بِمُصِيبَتِهِ ، مُصِيبَةً مَّا أَعْظَمَهَا وَأَعْظَمَ رَزِيَّتَهَا فِي الْإِسْلامِ وَفِي جَمِيعِ السَّمَاوَاتِ وَالْأرْضِ ، اَللَّـهُمَّ اجْعَلْنِي فِي مَقَامِي هَذَا مِمَّنْ تَنَالُهُ مِنْكَ صَلَوَاتٌ وَّرَحْمَةٌ وَّمَغْفِرَةٌ ، اَللَّـهُمَّ اجْعَلْ مَحْيَايَ مَحْيَا مُحَمَّدٍ وَّآلِ مُحَمَّدٍ ، وَّمَمَاتِي مَمَاتَ مُحَمَّدٍ وََآلِ مُحَمَّدٍ ، اَللّّـهُمَّ إِنَّ هَذَا يَوْمٌ تَبَرَّكَتْ بِهِ بَنُو أُمَيَّةَ وَابْنُ آكِلَةِ الْأَكْبَادِ اللَّعِينُ بْنُ اللَّعِينِ عَلَى لِسَانِكَ وَلِسَانِ نَبِيِّكَ ـ صَلَّى اللهُ عَلَيْهِ وَآلِهِ ـ فِي كُلِّ مَوْطِنٍ وَّمَوْقِفٍ وَّقَفَ فِيهِ نَبِيُّكَ ـ صَلَّى اللهُ عَلَيْهِ وَآلِهِ ـ ، اَللَّـهُمَّ الْعَنْ أَبَا سُفْيَانَ وَمُعَاوِيَةَ وَيَزيدَ بْنَ مُعَاوِيَةَ عَلَيْهِم مِّنْكَ اللَّعْنَةُ أَبَدَ الْآبِدِينَ ، وَهَذَا يَوْمٌ فَرِحَتْ بِهِ آلُ زِيَادٍ وَآلُ مَرْوَانَ بِقَتْلِهِمُ الْحُسَيْنَ ـ صَلَواتُ اللهِ عَلَيْهِ ـ ، اَللَّـهُمَّ فَضَاعِفْ عَلَيْهِمُ اللَّعْنَ مِنْكَ وَالْعَذَابَ الْأَلِيمَ ، اَللَّـهُمَّ إِنِّي أَتَقَرَّبُ إِلَيْكَ فِي هَذَا الْيَوْمِ وَفِي مَوْقِفِي هَذَا وَأَيَّامِ حَيَاتِي بِالْبَرَاءَةِ مِنْهُمْ وَاللَّعْنَةِ عَلَيْهِمْ وَبِالْمُوَالاةِ لِنَبِيِّكَ وَآلِ نَبِيِّكَ ـ عَلَيْهِ وَعَلَيْهِمُ السَّلامُ</p>
-    <p style="color:var(--gold);font-weight:bold">ثمّ تقول مائة مرّة :</p>
-    <p>اَللَّـهُمَّ الْعَنْ أَوَّلَ ظَالِمٍ ظَلَمَ حَقَّ مُحَمَّدٍ وَّآلِ مُحَمَّدٍ وَآخِرَ تَابِعٍ لَهُ عَلَى ذلِكَ ، اَللّـَهُمَّ الْعَنِ الْعِصَابَةَ الَّتي جَاهَدَتِ الْحُسَيْنَ ـ عَلَيْهِ السَّلَامُ ـ وَشَايَعَتْ وَبَايَعَتْ وَتَابَعَتْ عَلَى قَتْلِهِ ، اَللَّـهُمَّ الْعَنْهُمْ جَمِيعاً - اَلسَّلامُ عَلَيْكَ يَا أَبَا عَبْدِ اللهِ وَعَلَى الْأَرْوَاحِ الَّتِي حَلَّتْ بِفِنَائِكَ ، عَلَيْكَ مِنِّي سَلامُ اللهِ أَبَداً مَّا بَقِيتُ وَبَقِيَ اللَّيْلُ وَالنَّهَارُ ، وَلا جَعَلَهُ اللهُ آخِرَ الْعَهْدِ مِنِّي لِزِيَارَتِكُمْ ، اَلسَّلامُ عَلَى الْحُسَيْنِ ، وَعَلَى عَلِيِّ بْنِ الْحُسَيْنِ وَعَلَى أَوْلادِ الْحُسَيْنِ وَعَلَى أَصْحَابِ الْحُسَيْنِ</p>
-    <p style="color:var(--gold);font-weight:bold">ثمّ تقول :</p>
-    <p>اَللَّـهُمَّ خُصَّ أَنْتَ أَوَّلَ ظَالِمٍ بِاللَّعْنِ مِنِّي ، وَابْدَأْ بِهِ أَوَّلاً ، ثُمَّ الْعَنِ الثَّانيَ وَالثَّالِثَ وَالرَّابِعَ ، اَللّـَهُمَّ الْعَنْ يَزيدَ خَامِساً ، وَالْعَنْ عُبَيْدَ اللهِ بْنَ زِيَادٍ وَّابْنَ مَرْجانَةَ وَعُمَرَ بْنَ سَعْدٍ وَّشِمْراً وَآلَ أَبِي سُفْيَانَ وَآلَ زِيادٍ وََآلَ مَرْوَانَ إِلَى يَوْمِ الْقِيَامَةِ</p>
-    <p style="color:var(--gold);font-weight:bold">ثمّ تسجد وتقُول :</p>
-    <p>اَللَّـهُمَّ لَكَ الْحَمْدُ حَمْدَ الشَّاكِرِينَ لَكَ عَلَى مُصَابِهِمْ ، اَلْحَمْدُ للهِ عَلَى عَظِيمِ رَزِيَّتِي ، اَللَّـهُمَّ ارْزُقْنِي شَفَاعَةَ الْحُسَيْنِ يَوْمَ الْوُرُودِ ، وَثَبِّتْ لِي قَدَمَ صِدْقٍ عِنْدَكَ مَعَ الْحُسَيْنِ وَأَصْحَابِ الْحُسَيْنِ اَلَّذِينَ بَذَلُوا مُهَجَهُمْ دُونَ الْحُسَيْنِ عَلَيْهِ السَّلامُ .</p>
-  </div></div>
-
-  <div class="card">
-    <div class="mut">عدّاد المائة لعن (للتسبيح أثناء القراءة)</div>
-    <div class="big" id="tapNum">0</div>
-    <div class="bar"><i id="tapBar"></i></div>
-    <button class="btn" id="tapBtn">+1</button>
-    <button class="btn ghost" id="tapReset">إعادة</button>
-  </div>
-
-  <div class="card">
-    <div class="mut">عدد أيام القراءة</div>
-    <div class="big" id="counterDisplay">0</div>
-    <button id="addBtn" class="btn">سجل قراءة اليوم</button>
-    <button id="resetBtn" class="btn ghost">تصفير العداد</button>
-  </div>
-</section>
-
-<!-- دعاء العهد -->
-<section id="ahd">
-  <div class="card">
-    <div class="mut">أيام متواصلة</div>
-    <div class="big" id="ahdStreak">0</div>
-    <div class="mut" id="ahdBest"></div>
-    <div id="ahdTimer" class="mut" style="margin:10px 0"></div>
-    <button class="btn" id="ahdBtn">سجّلت قراءة دعاء العهد اليوم</button>
-  </div>
-
-  <div class="fs">حجم الخط <input type="range" min="18" max="40" value="24" class="fsr"></div>
-  <div class="dua-wrap"><div class="dua" id="ahdText">
-    <p>بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ : اَللَّهُمَّ رَبَّ النُّورِ الْعَظِيمِ وَرَبَّ الْكُرْسِيِّ الرَّفِيعِ وَرَبَّ الْبَحْرِ الْمَسْجُورِ وَمُنْزِلَ التَّوْرَاةِ وَالإِنْجِيلِ وَالزَّبُورِ وَرَبَّ الظِّلِّ وَالْحَرُورِ وَمُنْزِلَ الْقُرْآنِ العَظِيمِ وَرَبَّ الْمَلائِكَةِ الْمُقَرَّبِينَ وَالأَنْبِيَاءِ وَالْمُرْسَلِينَ ، اَللَّهُمَّ إِنِّي أَسْأَلُكَ بِوَجْهِكَ الْكَرِيمِ وَبِنُورِ وَجْهِكَ الْمُنِيرِ وَمُلْكِكَ القَدِيمِ ، يَا حَيُّ يَا قَيُّومُ أَسْأَلُكَ بِاسْمِكَ الَّذِي أَشْرَقَتْ بِهِ السَّمَاوَاتُ وَالأَرَضُونَ وَبِاسْمِكَ الَّذِي يَصْلُحُ بِهِ الأوَّلُونَ وَالآخِرُونَ ، يَا حَيًّا قَبْلَ كُلِّ حَيٍّ وَيَا حَيًّا بَعْدَ كُلِّ حَيٍّ وَيَا حَيًّا حِينَ لا حَيَّ يَا مُحْيِيَ الْمَوْتَى وَمُمِيتَ الأَحْيَاءِ يَا حَيُّ لا إِلَهَ إِلَّا أَنْتَ ، اَللَّهُمَّ بَلِّغْ مَوْلانَا الإِمَامَ الْهَادِيَ الْمَهْدِيَّ الْقَائِمَ بِأَمْرِكَ ـ صَلوَاتُ اللهِ عَلَيْهِ وَعَلَى آبَائِهِ الطَّاهِرِينَ ـ عَنْ جَمِيعِ الْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ فِي مَشَارِقِ الأَرْضِ وَمَغَارِبِهَا سَهْلِهَا وَجَبَلِهَا وَبَرِّهَا وَبَحْرِهَا وَعَنِّي وَعَن وَّالِدَيَّ مِنَ الصَّلَوَاتِ زِنَةَ عَرْشِ اللهِ وَمِدَادَ كَلِمَاتِهِ وَمَا أحْصَاهُ عِلْمُهُ وَأَحَاطَ بِهِ كِتَابُهُ ، اَللَّهُمَّ إِنِّي أُجَدِّدُ لَهُ فِي صَبِيحةِ يَوْمِي هَذَا وَمَا عِشْتُ مِنْ أَيَّامِي عَهْداً وَعَقْداً وَبَيْعَةً لَهُ فِي عُنُقِي لا أَحُولُ عَنْهَا وَلا أَزُولُ أَبَداً ، اَللَّهُمَّ اجْعَلْنِي مِنْ أَنْصَارِهِ وَأَعْوَانِهِ وَالذَّابِّينَ عَنْهُ وَالْمُسَارِعِينَ إِلَيْهِ فِي قَضاءِ حَوَائِجِهِ وَالْمُمْتَثِلِينَ لِأَوَامِرِهِ وَالْمُحَامِينَ عَنْهُ وَالسَّابِقِينَ إِلَى إِرَادَتِهِ وَالْمُسْتَشْهَدِينَ بَيْنَ يَدَيْهِ ، اَللَّهُمَّ إِنْ حَالَ بَيْنِي وَبَيْنَهُ الْمَوْتُ الَّذِي جَعَلْتَهُ عَلَى عِبَادِكَ حَتْماً مَقْضِيًّا فَأَخْرِجْنِي مِنْ قَبْرِي مُؤْتَزِراً كَفَنِي شَاهِراً سَيْفِي مُجَرِّداً قَنَاتِي مُلَبِّياً دَعْوَةَ الدَّاعِي فِي الْحَاضِرِ وَالْبَادِي ، اَللَّهُمَّ أَرِنِي الطَّلْعَةَ الرَّشِيدَةَ وَالْغُرَّةَ الْحَمِيدَةَ وَاكْحُلْ ناظِرِي بِنَظْرَةٍ مِّنِّي إِلَيْهِ وَعَجِّلْ فَرَجَهُ وَسَهِّلْ مَخْرَجَهُ وَأَوْسِعْ مَنْهَجَهُ وَاسْلُكْ بِي مَحَجَّتَهُ وَأَنْفِذْ أَمْرَهُ وَاشْدُدْ أَزْرَهُ ، وَاعْمُرِ ـ اللَّهُمَّ ـ بِهِ بِلادَكَ وَأَحْيِ بِه عِبَادَكَ فَإِنَّكَ قُلْتَ ـ وَقَوْلُكَ الْحَقُّ ـ : (( ظَهَرَ الْفَسَادُ فِي الْبَرِّ وَالْبَحْرِ بِمَا كَسَبَتْ أَيْدِي النَّاسِ )) ، فَأَظْهِرِ ـ اللَّهُمَّ ـ لَنا وَلِيَّكَ وَابْنَ بِنْتِ نَبِيِّكَ الْمُسَمّى بِاسْمِ رَسُولِكَ حَتَّى لا يَظْفَرَ بِشَيْءٍ مِنَ الْبَاطِلِ إِلَّا مَزَّقَهُ وَيَحِقَّ الْحَقَّ وَيُحَقِّقَهُ ، وَاجْعَلْهُ ـ اللّهُمَّ ـ مَفْزَعاً لِمَظْلُومِ عِبَادِكَ وَنَاصِراً لِمْن لَّا يَجِدُ لَهُ ناصِراً غَيْرَكَ وَمُجَدِّداً لِمَا عُطِّلَ مِنْ أَحْكَامِ كِتَابِكَ وَمُشَيِّداً لِّمَا وَرَدَ مِنْ أَعْلامِ دِينِكَ وَسُنَنِ نَبِيِّكَ ـ صَلَّى اللهُ عَلَيْهِ وَآلِهِ ـ ، وَاجْعَلْهُ ـ اللَّهُمَّ ـ مِمَّنْ حَصَّنْتَهُ مِنْ بَأْسِ الْمُعْتَدِينَ ، اَللَّهُمَّ وَسُرَّ نَبِيَّكَ مُحَمَّداً ـ صَلَّى اللهُ عَلَيْهِ وَآلِهِ ـ بِرُؤْيَتِهِ وَمَنْ تَبِعَهُ عَلَى دَعْوَتِهِ وَارْحَمِ اسْتِكانَتَنَا بَعْدَهُ ، اَللَّهُمَّ اكْشِفْ هَذِهِ الْغُمَّةَ عَنْ هَذِهِ الأُمَّةِ بِحُضُورِهِ وَعَجِّل لَّنَا ظُهُورَهُ (( إِنَّهُمْ يَرَوْنَهُ بَعِيداً وَنَرَاهُ قَرِيباً )) بِرَحْمَتِكَ يَا أَرْحَمَ الرَّاحِمِينَ .</p>
-    <p style="color:var(--gold);font-weight:bold">ثمّ تضرب على فخذك الأيمن بيدك ثلاث مرّات وتقول كلّ مرّة :</p>
-    <p>الْعَجَلَ الْعَجَلَ يَا مَوْلايَ يَا صَاحِبَ الزَّمَانِ</p>
-  </div></div>
-</section>
-
-<!-- السجل -->
-<section id="stats">
-  <div class="card">
-    <h3 style="margin-top:0">دعاء العهد — آخر 28 يوم</h3>
-    <div class="heat" id="heat"></div>
-  </div>
-  <div class="card">
-    <h3 style="margin-top:0">سجل زيارة عاشوراء</h3>
-    <p id="lastReadDisplay" dir="ltr" class="mut"></p>
-    <ul id="readingHistoryList" dir="ltr" class="hist"></ul>
-  </div>
-</section>
-
-</main>
-
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyCQLgilHSTuES_fiXKWD8NREbL6ia41peA",
-  authDomain: "ashura-counter.firebaseapp.com",
-  projectId: "ashura-counter",
-  storageBucket: "ashura-counter.firebasestorage.app",
-  messagingSenderId: "6941950909",
-  appId: "1:6941950909:web:3c2b73f53bb425a89b48d4"
-};
-const HAS_FB = typeof firebase !== "undefined";
-let auth = null, db = null;
-if(HAS_FB){ firebase.initializeApp(firebaseConfig); auth = firebase.auth(); db = firebase.firestore(); }
-
-const CUTOFF_HOUR = 11; // إذا جاء بعد الساعة 11 ولم يسجل العهد، يتصفر العداد
-
-let count = 0, readingHistory = [], currentUser = null, loaded = false;
-let ahdStreak = 0, ahdBest = 0, ahdLastRead = "", ahdHistory = [];
-
-const $ = id => document.getElementById(id);
-const key = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
-const getEnglishDate = () => new Date().toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"});
-
-function save(){
-  if(!HAS_FB){
-    localStorage.setItem("offlineData", JSON.stringify({count, readingHistory, ahdStreak, ahdBest, ahdLastRead, ahdHistory}));
-    return;
-  }
-  if(!currentUser) return;
-  db.collection("users").doc(currentUser.uid).set({
-    ashuraCount: count, readingHistory,
-    ahdStreak, ahdBest, ahdLastRead, ahdHistory
-  },{merge:true}).catch(e => console.error("save error", e));
-}
-
-// منطق التصفير: يرجع true إذا تغيّر شيء
-function evalAhd(){
-  if(!ahdStreak) return false;
-  const now = new Date(), today = key(now);
-  const y = new Date(now); y.setDate(y.getDate()-1);
-  let reset = false;
-  if(ahdLastRead === today) reset = false;
-  else if(ahdLastRead === key(y)) reset = now.getHours() >= CUTOFF_HOUR;
-  else reset = true;
-  if(reset){ ahdStreak = 0; return true; }
-  return false;
-}
-
-function render(){
-  $("counterDisplay").innerText = count;
-  $("hAshura").innerText = count;
-  $("hAhd").innerText = ahdStreak;
-  $("ahdStreak").innerText = ahdStreak;
-  $("ahdBest").innerText = "أفضل سلسلة: " + ahdBest + " يوم";
-  $("lastReadDisplay").innerText = readingHistory.length ? "Last read: " + readingHistory[readingHistory.length-1] : "";
-  $("readingHistoryList").innerHTML = readingHistory.map(d => "<li>✅ " + d + "</li>").join("");
-
-  const now = new Date(), today = key(now);
-  const done = ahdLastRead === today;
-  let msg, timer = "";
-  if(done){ msg = "✅ سجلت دعاء العهد اليوم. موعدك القادم بكرة قبل الساعة " + CUTOFF_HOUR + ".";
-            timer = msg; }
-  else if(ahdStreak > 0){
-    const end = new Date(now); end.setHours(CUTOFF_HOUR,0,0,0);
-    const ms = end - now, h = Math.floor(ms/36e5), m = Math.floor(ms%36e5/6e4);
-    timer = "⏳ باقي " + h + " ساعة و " + m + " دقيقة قبل ما يتصفر العداد";
-    msg = "🔥 سلسلتك " + ahdStreak + " يوم — لا تنسى دعاء العهد اليوم. " + timer;
-  } else { msg = "ابدأ سلسلة دعاء العهد اليوم بإذن الله."; timer = msg; }
-  $("ahdStatus").innerText = msg;
-  $("ahdTimer").innerText = timer;
-  $("ahdBtn").disabled = done;
-  $("ahdBtn").style.opacity = done ? .5 : 1;
-
-  let h = "";
-  for(let i=27;i>=0;i--){
-    const d = new Date(); d.setDate(d.getDate()-i);
-    const k = key(d);
-    h += '<span class="' + (ahdHistory.includes(k) ? "on " : "") + (i===0 ? "today" : "") + '" title="' + k + '"></span>';
-  }
-  $("heat").innerHTML = h;
-}
-
-// وضع تجريبي: إذا ما تحمّل Firebase (مثلاً في المعاينة) نشتغل بحفظ محلي على الجهاز
-if(!HAS_FB){
-  const d = JSON.parse(localStorage.getItem("offlineData") || "{}");
-  count = d.count || 0; readingHistory = d.readingHistory || [];
-  ahdStreak = d.ahdStreak || 0; ahdBest = d.ahdBest || 0;
-  ahdLastRead = d.ahdLastRead || ""; ahdHistory = d.ahdHistory || [];
-  loaded = true;
-  $("userInfo").innerText = "وضع تجريبي (بدون حساب)";
-  if(evalAhd()) save();
-  render();
-}
-
-// تحميل البيانات
-if(HAS_FB) auth.onAuthStateChanged(user => {
-  if(!user){ window.location.href = "index.html"; return; }
-  currentUser = user;
-  $("userInfo").innerText = "أهلاً، " + (user.displayName || "");
-  db.collection("users").doc(user.uid).get().then(doc => {
-    const d = doc.exists ? doc.data() : {};
-    count = d.ashuraCount || 0;
-    readingHistory = d.readingHistory || [];
-    ahdStreak = d.ahdStreak || 0;
-    ahdBest = d.ahdBest || 0;
-    ahdLastRead = d.ahdLastRead || "";
-    ahdHistory = d.ahdHistory || [];
-    loaded = true;
-    if(evalAhd()) save();
-    render();
-  }).catch(e => {
-    console.error("Error getting document:", e);
-    loaded = true; // لا نخلي الأزرار معطلة لو فشل التحميل
-    render();
-    alert("تعذر تحميل بياناتك من السيرفر: " + e.message + "\nتأكد من الإنترنت ومن قواعد Firestore.");
-  });
-});
-setInterval(() => { if(loaded){ if(evalAhd()) save(); render(); } }, 60000);
-
-$("logoutBtn").onclick = () => {
-  if(!HAS_FB){ alert("أنت في الوضع التجريبي بدون حساب."); return; }
-  auth.signOut().then(() => window.location.href = "index.html");
-};
-
-// تسجيل عاشوراء
-$("addBtn").onclick = () => {
-  const today = getEnglishDate();
-  if(readingHistory.length && readingHistory[readingHistory.length-1] === today){
-    alert("لقد قمت بتسجيل القراءة لهذا اليوم بالفعل!\nDate: " + today); return;
-  }
-  count++; readingHistory.push(today); render(); save();
-};
-$("resetBtn").onclick = () => {
-  if(confirm("هل أنت متأكد أنك تبي تصفر العداد وتمسح السجل بالكامل وتبدأ من جديد؟")){
-    count = 0; readingHistory = []; render(); save();
-  }
-};
-
-// تسجيل دعاء العهد
-$("ahdBtn").onclick = () => {
-  if(!loaded) return;
-  const today = key(new Date());
-  if(ahdLastRead === today){ alert("سجلت دعاء العهد اليوم بالفعل ✅"); return; }
-  evalAhd();               // لو فاته الموعد يبدأ من جديد
+  evalAhd();               
   ahdStreak++;
   ahdBest = Math.max(ahdBest, ahdStreak);
   ahdLastRead = today;
