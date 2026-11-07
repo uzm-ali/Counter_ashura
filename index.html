@@ -1,133 +1,71 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>عداد زيارة عاشوراء - تسجيل الدخول</title>
-<meta name="description" content="تطبيق ويب لعداد زيارة عاشوراء، يتيح لك حفظ قراءاتك وربطها بحسابك الشخصي.">
-<meta name="keywords" content="زيارة عاشوراء, عداد عاشوراء, تسبيح, حفظ القراءة, تسجيل دخول">
-<meta property="og:title" content="عداد زيارة عاشوراء">
-<meta property="og:description" content="سجل قراءاتك بسهولة واحفظها على حسابك.">
-<meta name="google-site-verification" content="H_md7hatm_nJNFx7iEJjRoCOSGQE6gLHsqjNL_82QQE" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>عداد زيارة عاشوراء - تسجيل الدخول</title>
 
-<style>
-:root {
-  --bg: #f0f4f8;
-  --card: #ffffff;
-  --tx: #1e293b;
-  --mut: #64748b;
-  --ac: #2563eb;
-  --gold: #d97706;
-  --bd: #e2e8f0;
-}
-body.dark-theme {
-  --bg: #0b1120;
-  --card: #1e293b;
-  --tx: #f8fafc;
-  --mut: #94a3b8;
-  --bd: #334155;
-  --ac: #3b82f6;
-  --gold: #fbbf24;
-}
+  <!-- أكواد محركات البحث (عشان جوجل) -->
+  <meta name="description" content="تطبيق ويب لعداد زيارة عاشوراء، يتيح لك حفظ قراءاتك وربطها بحسابك الشخصي.">
+  <meta name="keywords" content="زيارة عاشوراء, عداد عاشوراء, تسبيح, حفظ القراءة, تسجيل دخول">
+  
+  <!-- أكواد المشاركة (عشان الواتساب وغيره) -->
+  <meta property="og:title" content="عداد زيارة عاشوراء">
+  <meta property="og:description" content="سجل قراءاتك بسهولة واحفظها على حسابك.">
 
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--tx); font-family: Tahoma, "Segoe UI", sans-serif; display: flex; flex-direction: column; min-height: 100vh; align-items: center; justify-content: center; transition: background 0.3s; }
-
-.topbar { position: absolute; top: 0; width: 100%; z-index: 10; background: var(--card); border-bottom: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; }
-.topbar h1 { font-size: 18px; margin: 0; color: var(--ac); }
-
-main { max-width: 400px; width: 90%; margin: 60px auto 20px; }
-
-.card { background: var(--card); border: 1px solid var(--bd); border-radius: 14px; padding: 24px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
-.card h2 { margin-top: 0; color: var(--gold); }
-.mut { color: var(--mut); font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
-
-.btn { width: 100%; color: #fff; border: 0; border-radius: 10px; padding: 12px; font-size: 16px; cursor: pointer; font-weight: bold; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
-.btn:hover { opacity: 0.9; transform: translateY(-1px); }
-.btn.ghost { background: none; color: var(--ac); border: 1px solid var(--ac); margin-top: 15px; font-weight: normal; }
-.btn.ghost:hover { background: var(--ac); color: #fff; }
-
-.google-btn { background: #ffffff; color: #3c4043; border: 1px solid #dadce0; }
-.google-btn:hover { background: #f8f9fa; border-color: #d2e3fc; box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3); transform: none; }
-body.dark-theme .google-btn { background: #334155; color: #f8fafc; border-color: #475569; }
-body.dark-theme .google-btn:hover { background: #475569; }
-</style>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="google-site-verification" content="H_md7hatm_nJNFx7iEJjRoCOSGQE6gLHsqjNL_82QQE" />
 </head>
-<body>
+  <body class="login-body">
 
-<div class="topbar">
-  <h1>عداد الزيارات والأدعية</h1>
-  <button class="btn ghost" id="darkModeToggle" style="width:auto; padding:6px 12px; margin:0;">🌙</button>
-</div>
+    <div class="login-container">
+      <h2>مرحباً بك في عداد زيارة عاشوراء</h2>
+      <p>يرجى تسجيل الدخول لحفظ تقدمك ومزامنته على جميع أجهزتك.</p>
+      
+      <!-- زر تسجيل الدخول بجوجل -->
+      <button id="googleLoginBtn" class="google-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
+          <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+          <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"/>
+          <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+          <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571c.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+        </svg>
+        <span>تسجيل الدخول باستخدام Google</span>
+      </button>
+    </div>
 
-<main>
-  <div class="card">
-    <h2>تسجيل الدخول</h2>
-    <div class="mut">يرجى تسجيل الدخول لحفظ تقدمك ومزامنته على جميع أجهزتك.</div>
-    
-    <button id="googleLoginBtn" class="btn google-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
-        <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
-        <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"/>
-        <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
-        <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571c.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
-      </svg>
-      <span>المتابعة باستخدام حساب Google</span>
-    </button>
-    
-    <hr style="border: 0; border-top: 1px solid var(--bd); margin: 20px 0;">
-    <button class="btn ghost" id="guestBtn">المتابعة كزائر (بدون حساب)</button>
-  </div>
-</main>
+    <!-- استدعاء مكتبات فايربيس -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCQLgilHSTuES_fiXKWD8NREbL6ia41peA",
-    authDomain: "ashura-counter.firebaseapp.com",
-    projectId: "ashura-counter",
-    storageBucket: "ashura-counter.firebasestorage.app",
-    messagingSenderId: "6941950909",
-    appId: "1:6941950909:web:3c2b73f53bb425a89b48d4"
-  };
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyCQLgilHSTuES_fiXKWD8NREbL6ia41peA",
+        authDomain: "ashura-counter.firebaseapp.com",
+        projectId: "ashura-counter",
+        storageBucket: "ashura-counter.firebasestorage.app",
+        messagingSenderId: "6941950909",
+        appId: "1:6941950909:web:3c2b73f53bb425a89b48d4"
+      };
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const provider = new firebase.auth.GoogleAuthProvider();
 
-  // إذا كان المستخدم مسجلاً، وجهه فوراً لصفحة التطبيق
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      window.location.href = "counter.html";
-    }
-  });
+      // إذا كان مسجل دخول مسبقاً، حوله لصفحة العداد مباشرة
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          window.location.href = "counter.html";
+        }
+      });
 
-  // تسجيل الدخول باستخدام جوجل
-  document.getElementById("googleLoginBtn").addEventListener("click", () => {
-    auth.signInWithPopup(provider).catch((error) => {
-      alert("حدث خطأ أثناء تسجيل الدخول: " + error.message);
-    });
-  });
-
-  // المتابعة كزائر
-  document.getElementById("guestBtn").addEventListener("click", () => {
-    window.location.href = "counter.html";
-  });
-
-  // دعم الوضع الليلي
-  function applyTheme(){
-    const t = localStorage.getItem("theme");
-    const isDark = t === "dark" || (t !== "light" && new Date().getHours() >= 18 || new Date().getHours() < 6);
-    document.body.classList.toggle("dark-theme", isDark);
-    document.getElementById("darkModeToggle").innerText = isDark ? "☀️" : "🌙";
-  }
-  document.getElementById("darkModeToggle").onclick = () => { 
-    const isDark = document.body.classList.contains("dark-theme");
-    localStorage.setItem("theme", isDark ? "light" : "dark"); 
-    applyTheme(); 
-  };
-  applyTheme();
-</script>
-</body>
+      // حدث الضغط على زر الدخول
+      document.getElementById("googleLoginBtn").addEventListener("click", () => {
+        auth.signInWithPopup(provider).catch((error) => {
+          alert("حدث خطأ أثناء تسجيل الدخول: " + error.message);
+        });
+      });
+    </script>
+  </body>
 </html>
