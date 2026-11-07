@@ -1,71 +1,115 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>عداد زيارة عاشوراء - تسجيل الدخول</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عداد الزيارات والأدعية - تسجيل الدخول</title>
 
-  <!-- أكواد محركات البحث (عشان جوجل) -->
-  <meta name="description" content="تطبيق ويب لعداد زيارة عاشوراء، يتيح لك حفظ قراءاتك وربطها بحسابك الشخصي.">
-  <meta name="keywords" content="زيارة عاشوراء, عداد عاشوراء, تسبيح, حفظ القراءة, تسجيل دخول">
-  
-  <!-- أكواد المشاركة (عشان الواتساب وغيره) -->
-  <meta property="og:title" content="عداد زيارة عاشوراء">
-  <meta property="og:description" content="سجل قراءاتك بسهولة واحفظها على حسابك.">
+  <!-- محركات البحث -->
+  <meta name="description" content="تطبيق ويب لعداد زيارة عاشوراء ودعاء العهد وأوقات الصلاة والمناسبات، يحفظ قراءاتك ويربطها بحسابك الشخصي.">
+  <meta name="keywords" content="زيارة عاشوراء, عداد عاشوراء, دعاء العهد, أوقات الصلاة, تسبيح, حفظ القراءة, تسجيل دخول">
+  <meta name="google-site-verification" content="H_md7hatm_nJNFx7iEJjRoCOSGQE6gLHsqjNL_82QQE" />
 
-  <link rel="stylesheet" href="style.css" />
-  <meta name="google-site-verification" content="H_md7hatm_nJNFx7iEJjRoCOSGQE6gLHsqjNL_82QQE" />
+  <!-- المشاركة (واتساب وغيره) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="عداد الزيارات والأدعية">
+  <meta property="og:description" content="سجل قراءاتك بسهولة واحفظها على حسابك.">
+
+  <style>
+    :root { --card:#ffffff; --tx:#1e293b; --mut:#64748b; --bd:#e2e8f0; --err:#dc2626; }
+    @media (prefers-color-scheme: dark) {
+      :root { --card:#1e293b; --tx:#f8fafc; --mut:#94a3b8; --bd:#334155; --err:#f87171; }
+    }
+    * { box-sizing: border-box; }
+    body.login-body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
+      font-family: Tahoma, "Segoe UI", sans-serif; color: var(--tx);
+      background: radial-gradient(circle at top center, #1a237e 0%, #050914 70%, #000000 100%);
+    }
+    .login-container {
+      width: 100%; max-width: 420px; background: var(--card); border: 1px solid var(--bd);
+      border-radius: 16px; padding: 32px 24px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    }
+    .login-container h2 { margin: 0 0 12px; font-size: 22px; }
+    .login-container p { margin: 0 0 24px; color: var(--mut); line-height: 1.8; }
+    .google-btn {
+      width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 12px 16px; font-size: 16px; cursor: pointer; border-radius: 10px;
+      background: #ffffff; color: #1f2937; border: 1px solid #d1d5db; transition: 0.2s;
+    }
+    .google-btn:hover:not(:disabled) { box-shadow: 0 2px 10px rgba(0,0,0,0.2); transform: translateY(-1px); }
+    .google-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    #loginMsg { color: var(--err); font-size: 14px; line-height: 1.8; margin-top: 16px; min-height: 1px; }
+  </style>
 </head>
-  <body class="login-body">
+<body class="login-body">
 
-    <div class="login-container">
-      <h2>مرحباً بك في عداد زيارة عاشوراء</h2>
-      <p>يرجى تسجيل الدخول لحفظ تقدمك ومزامنته على جميع أجهزتك.</p>
-      
-      <!-- زر تسجيل الدخول بجوجل -->
-      <button id="googleLoginBtn" class="google-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
-          <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
-          <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"/>
-          <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
-          <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571c.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
-        </svg>
-        <span>تسجيل الدخول باستخدام Google</span>
-      </button>
-    </div>
+  <div class="login-container">
+    <h2>مرحباً بك في عداد الزيارات والأدعية</h2>
+    <p>يرجى تسجيل الدخول لحفظ تقدمك ومزامنته على جميع أجهزتك.</p>
 
-    <!-- استدعاء مكتبات فايربيس -->
-    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+    <button id="googleLoginBtn" class="google-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
+        <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+        <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"/>
+        <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+        <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571c.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+      </svg>
+      <span>تسجيل الدخول باستخدام Google</span>
+    </button>
+    <div id="loginMsg" role="alert"></div>
+  </div>
 
-    <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyCQLgilHSTuES_fiXKWD8NREbL6ia41peA",
-        authDomain: "ashura-counter.firebaseapp.com",
-        projectId: "ashura-counter",
-        storageBucket: "ashura-counter.firebasestorage.app",
-        messagingSenderId: "6941950909",
-        appId: "1:6941950909:web:3c2b73f53bb425a89b48d4"
-      };
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCQLgilHSTuES_fiXKWD8NREbL6ia41peA",
+      authDomain: "ashura-counter.firebaseapp.com",
+      projectId: "ashura-counter",
+      storageBucket: "ashura-counter.firebasestorage.app",
+      messagingSenderId: "6941950909",
+      appId: "1:6941950909:web:3c2b73f53bb425a89b48d4"
+    };
 
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
-      const provider = new firebase.auth.GoogleAuthProvider();
+    const btn = document.getElementById("googleLoginBtn");
+    const msg = document.getElementById("loginMsg");
 
-      // إذا كان مسجل دخول مسبقاً، حوله لصفحة العداد مباشرة
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          window.location.href = "counter.html";
-        }
-      });
+    if (typeof firebase === "undefined") {
+      // مكتبة فايربيس ما تحمّلت (إنترنت ضعيف أو محجوبة)
+      btn.disabled = true;
+      msg.textContent = "تعذر تحميل خدمة تسجيل الدخول. تأكد من الإنترنت وأعد تحميل الصفحة.";
+    } else {
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
 
-      // حدث الضغط على زر الدخول
-      document.getElementById("googleLoginBtn").addEventListener("click", () => {
-        auth.signInWithPopup(provider).catch((error) => {
-          alert("حدث خطأ أثناء تسجيل الدخول: " + error.message);
-        });
-      });
-    </script>
-  </body>
+      // إذا كان مسجل دخول مسبقاً حوّله للعداد (replace عشان زر الرجوع ما يعلق)
+      auth.onAuthStateChanged((user) => {
+        if (user) window.location.replace("counter.html");
+      });
+
+      btn.addEventListener("click", async () => {
+        btn.disabled = true;
+        msg.textContent = "";
+        try {
+          await auth.signInWithPopup(provider);
+        } catch (error) {
+          const quiet = ["auth/popup-closed-by-user", "auth/cancelled-popup-request"];
+          if (error.code === "auth/popup-blocked" || error.code === "auth/operation-not-supported-in-this-environment") {
+            msg.textContent = "المتصفح منع نافذة الدخول. اسمح بالنوافذ المنبثقة، أو افتح الرابط في Safari أو Chrome مباشرة وليس من داخل واتساب أو إنستغرام.";
+          } else if (error.code === "auth/network-request-failed") {
+            msg.textContent = "تأكد من اتصال الإنترنت وحاول مرة ثانية.";
+          } else if (error.code === "auth/unauthorized-domain") {
+            msg.textContent = "هذا النطاق غير مضاف في Firebase (Authentication > Settings > Authorized domains).";
+          } else if (!quiet.includes(error.code)) {
+            msg.textContent = "حدث خطأ أثناء تسجيل الدخول: " + error.message;
+          }
+        }
+        btn.disabled = false;
+      });
+    }
+  </script>
+</body>
 </html>
