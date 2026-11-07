@@ -473,9 +473,9 @@ if(!HAS_FB){
 
 // تحميل البيانات
 if(HAS_FB) auth.onAuthStateChanged(user => {
-  if(!user){ window.location.href = "index.html"; return; }
+  if(!user){ window.location.href = "login.html"; return; }
   currentUser = user;
-  $("userInfo").innerText = "أهلاً، " + (user.displayName || "");
+  $("userInfo").innerText = "أهلاً، " + (user.displayName || "يا مؤمن");
   db.collection("users").doc(user.uid).get().then(doc => {
     const d = doc.exists ? doc.data() : {};
     count = d.ashuraCount || 0;
@@ -498,7 +498,7 @@ setInterval(() => { if(loaded){ if(evalAhd()) save(); render(); } }, 60000);
 
 $("logoutBtn").onclick = () => {
   if(!HAS_FB){ alert("أنت في الوضع التجريبي بدون حساب."); return; }
-  auth.signOut().then(() => window.location.href = "index.html");
+  auth.signOut().then(() => window.location.href = "login.html");
 };
 
 // تسجيل عاشوراء
